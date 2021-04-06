@@ -37,12 +37,12 @@ export default {
     &__left {
       width: 30%;
       background-color: rgb(36, 106, 111);
-      padding-top: 80px;
+      padding: 80px 0;
     }
     &__right {
       width: 70%;
       background-color: rgb(220, 220, 220);
-      padding-top: 80px;
+      padding: 80px 0;
     }
   }
 }
