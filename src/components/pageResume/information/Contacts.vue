@@ -47,28 +47,24 @@ export default {
     background-color: rgb(194, 194, 194);
   }
 }
-.phone {
-  color: black;
+.content {
+  font-family: "Roboto", sans-serif;
+  word-break: break-all;
+  font-size: 16px;
   text-align: left;
-  font-size: 18px;
+  color: black;
   letter-spacing: 2px;
+}
+.phone {
   margin-bottom: 10px;
   cursor: pointer;
 }
 .email {
-  color: black;
-  text-align: left;
-  font-size: 18px;
-  letter-spacing: 2px;
   cursor: pointer;
 }
 .text {
-  color: black;
   text-align: justify;
-  font-size: 18px;
-  letter-spacing: 2px;
   margin-bottom: 10px;
-  transition: all 3s linear;
 }
 .fade-enter-active,
 .fade-leave-active {

@@ -1,14 +1,27 @@
 <template>
-  <h2 class="form__title">{{ title }}</h2>
-  <h4 class="subtitle">{{ subtitle }}</h4>
-  <form class="form">
+  <div class="titles__form">
+    <h2 class="form__title">{{ title }}</h2>
+    <h4 class="subtitle">{{ subtitle }}</h4>
+  </div>
+
+  <form class="form" id="form">
     <div class="form-control">
-      <label for="status">Мы представляем:</label>
-      <select id="status">
-        <option value="done">Компанию</option>
-        <option value="cancelled">Startup</option>
-        <option value="active">ИП</option>
-        <option value="pending">Внеземную цивилизацию</option>
+      <label for="want">Мы хотим:</label>
+      <select id="want" class="select" v-model="newWant">
+        <option value="null" selected>Выберите</option>
+        <option value="interview">Пригласить на собеседование</option>
+        <option value="thanks">Поблагодарить за интерес</option>
+        <option value="mistakes">Указать на ошибки</option>
+      </select>
+    </div>
+
+    <div class="form-control">
+      <label for="present">Мы представляем:</label>
+      <select id="present" class="select" v-model="newPresent">
+        <option value="null" selected>Выберите</option>
+        <option value="company">Компанию</option>
+        <option value="startup">Startup</option>
+        <option value="ip">ИП</option>
       </select>
     </div>
 
@@ -18,26 +31,23 @@
     </div>
 
     <div class="form-control">
-      <label for="textarea">Немного о нас:</label>
+      <label for="textarea">{{ textareaName(titleTextarea) }} </label>
       <textarea id="textarea" v-model="newAboutUs" />
     </div>
 
-    <div class="form-control">
+    <div class="form-control" v-if="titleTextarea == 'interview'">
       <label for="phone">Телефон</label>
       <input type="text" id="phone" v-model="newCompanyPhone" />
     </div>
 
-    <button class="btn" @click="updateCompany" type="submit" name="submit">
-      Посмотреть
-    </button>
-    <button class="btn" @click="clearForm" type="reset" name="reset">
-      Очистить
-    </button>
+    <button class="btn" @click="clearForm" type="reset">Очистить</button>
   </form>
 </template>
 
 <script>
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { textareaName } from "../../utils/textareaMap";
 
 export default {
   props: {
@@ -46,33 +56,73 @@ export default {
   },
   setup() {
     const store = useStore();
+
+    const titleTextarea = computed(() => store.getters.want);
+
+    const newWant = computed({
+      get: () => store.getters.want,
+      set: (value) => store.commit("updateWant", value),
+    });
+
+    const newPresent = computed({
+      get: () => store.getters.present,
+      set: (value) => store.commit("updatePresent", value),
+    });
+
+    const newName = computed({
+      get: () => store.getters.companyName,
+      set: (value) => store.commit("updateCompanyName", value),
+    });
+
+    const newAboutUs = computed({
+      get: () => store.getters.aboutUs,
+      set: (value) => store.commit("updateAboutUs", value),
+    });
+
+    const newCompanyPhone = computed({
+      get: () => store.getters.companyPhone,
+      set: (value) => store.commit("updateCompanyPhone", value),
+    });
+
     return {
-      newName: store.getters.companyName,
-      newAboutUs: store.getters.aboutUs,
-      newCompanyPhone: store.getters.companyPhone,
+      newName,
+      newAboutUs,
+      newCompanyPhone,
+      newPresent,
+      newWant,
       store,
+      titleTextarea,
+      textareaName,
     };
   },
   methods: {
-    updateCompany() {
-      this.store.commit("updateCompanyName", this.newName);
-      console.log(this.$store.state.companyName);
-      this.store.commit("updateAboutUs", this.newAboutUs);
-      console.log(this.$store.state.aboutUs);
-      this.store.commit("updateCompanyPhone", this.newCompanyPhone);
-      console.log(this.$store.state.companyPhone);
-    },
+    // updateCompany() {
+    //   this.store.commit("updateCompanyName", this.newName);
+    //   this.store.commit("updateAboutUs", this.newAboutUs);
+    //   this.store.commit("updateCompanyPhone", this.newCompanyPhone);
+    //   this.store.commit("updatePresent", this.newPresent);
+    //   this.store.commit("updateWant", this.newWant);
+    // },
     clearForm() {
-      this.store.commit("clearForm", null);
-      this.newName = "";
-      this.newAboutUs = "";
-      this.newCompanyPhone = "";
+      this.store.commit("clearForm");
+      // this.newName = "";
+      // this.newAboutUs = "";
+      // this.newCompanyPhone = "";
+      // this.newPresent = null;
+      // this.newWant = null;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.titles__form {
+  padding: 0 5px;
+}
+.select option {
+  color: black;
+  font-weight: 300;
+}
 .form__title {
   font-size: 30px;
   font-weight: 500;
@@ -102,7 +152,6 @@ export default {
   border: 2px solid #ccc;
   display: block;
   width: 100%;
-  // color: #2c3e50;
   padding: 8px 0px;
   border-radius: 3px;
   font-size: 1rem;
