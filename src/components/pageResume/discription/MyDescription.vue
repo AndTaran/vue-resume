@@ -25,7 +25,8 @@ export default {
         skill3: "SCSS",
         skill4: "JavaScipt",
         skill5: "Vue",
-        skill6: "GIT",
+        skill6: "Vuex",
+        skill7: "GIT",
       },
       {
         title: "Образование",

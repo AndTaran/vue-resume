@@ -1,6 +1,9 @@
 <template>
-  <h2 class="form__title">{{ title }}</h2>
-  <h4 class="subtitle">{{ subtitle }}</h4>
+  <div class="titles__form">
+    <h2 class="form__title">{{ title }}</h2>
+    <h4 class="subtitle">{{ subtitle }}</h4>
+  </div>
+
   <form class="form" id="form">
     <div class="form-control">
       <label for="want">Мы хотим:</label>
@@ -28,16 +31,15 @@
     </div>
 
     <div class="form-control">
-      <label for="textarea">{{ textareaName }} </label>
+      <label for="textarea">{{ textareaName(titleTextarea) }} </label>
       <textarea id="textarea" v-model="newAboutUs" />
     </div>
 
-    <div class="form-control">
+    <div class="form-control" v-if="titleTextarea == 'interview'">
       <label for="phone">Телефон</label>
       <input type="text" id="phone" v-model="newCompanyPhone" />
     </div>
 
-    <button class="btn" @click="updateCompany" type="button">Посмотреть</button>
     <button class="btn" @click="clearForm" type="reset">Очистить</button>
   </form>
 </template>
@@ -45,6 +47,7 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { textareaName } from "../../utils/textareaMap";
 
 export default {
   props: {
@@ -54,16 +57,7 @@ export default {
   setup() {
     const store = useStore();
 
-    const TEXTAREA_MAP = {
-      null: null,
-      interview: "Немного о нас:",
-      thanks: "Выражение благодарности:",
-      mistakes: "Описание ошибок:",
-    };
     const titleTextarea = computed(() => store.getters.want);
-    const textareaName = computed(() =>
-      titleTextarea.value ? TEXTAREA_MAP[titleTextarea.value] : null
-    );
 
     const newWant = computed({
       get: () => store.getters.want,
@@ -81,7 +75,7 @@ export default {
     });
 
     const newAboutUs = computed({
-      get: () => store.getters.AboutUs,
+      get: () => store.getters.aboutUs,
       set: (value) => store.commit("updateAboutUs", value),
     });
 
@@ -97,36 +91,38 @@ export default {
       newPresent,
       newWant,
       store,
+      titleTextarea,
       textareaName,
     };
   },
   methods: {
-    updateCompany() {
-      this.store.commit("updateCompanyName", this.newName);
-      this.store.commit("updateAboutUs", this.newAboutUs);
-      this.store.commit("updateCompanyPhone", this.newCompanyPhone);
-      this.store.commit("updatePresent", this.newPresent);
-      this.store.commit("updateWant", this.newWant);
-    },
+    // updateCompany() {
+    //   this.store.commit("updateCompanyName", this.newName);
+    //   this.store.commit("updateAboutUs", this.newAboutUs);
+    //   this.store.commit("updateCompanyPhone", this.newCompanyPhone);
+    //   this.store.commit("updatePresent", this.newPresent);
+    //   this.store.commit("updateWant", this.newWant);
+    // },
     clearForm() {
       this.store.commit("clearForm");
-      this.newName = "";
-      this.newAboutUs = "";
-      this.newCompanyPhone = "";
-      this.newPresent = null;
-      this.newWant = null;
+      // this.newName = "";
+      // this.newAboutUs = "";
+      // this.newCompanyPhone = "";
+      // this.newPresent = null;
+      // this.newWant = null;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.titles__form {
+  padding: 0 5px;
+}
 .select option {
   color: black;
   font-weight: 300;
 }
-// .select:last-child {
-// }
 .form__title {
   font-size: 30px;
   font-weight: 500;
@@ -156,7 +152,6 @@ export default {
   border: 2px solid #ccc;
   display: block;
   width: 100%;
-  // color: #2c3e50;
   padding: 8px 0px;
   border-radius: 3px;
   font-size: 1rem;

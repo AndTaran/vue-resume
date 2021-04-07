@@ -12,6 +12,7 @@
           <li>{{ skillsArr.skill4 }}</li>
           <li>{{ skillsArr.skill5 }}</li>
           <li>{{ skillsArr.skill6 }}</li>
+          <li>{{ skillsArr.skill7 }}</li>
         </ul>
       </div>
 
@@ -60,7 +61,6 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-  // margin-top: 0px;
   text-align: left;
   color: white;
   font-size: 20px;
@@ -75,8 +75,9 @@ export default {
   text-align: left;
   list-style: none;
   font-size: 25px;
-  font-weight: 300;
+  font-weight: 400;
   color: black;
   letter-spacing: 1px;
+  word-break: normal;
 }
 </style>

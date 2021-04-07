@@ -26,23 +26,26 @@ export default {
 
 <style lang="scss">
 .container {
-  overflow: auto;
+  // overflow: hidden;
   max-width: 1280px;
-  min-height: 100vh;
+  // min-height: 100vh;
   padding: 0 20px;
   margin: 0 auto;
   .blocks {
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
     &__left {
       width: 30%;
       background-color: rgb(36, 106, 111);
       padding: 80px 0;
+      // border-left: 8px solid black;
     }
     &__right {
       width: 70%;
       background-color: rgb(220, 220, 220);
       padding: 80px 0;
+      border-right: 8px solid rgb(36, 106, 111);
     }
   }
 }

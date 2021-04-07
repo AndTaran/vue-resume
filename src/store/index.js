@@ -3,9 +3,9 @@ import { createStore } from "vuex";
 export default createStore({
   state() {
     return {
-      companyName: "Майкрософт",
-      aboutUs: "123",
-      companyPhone: "899392923929",
+      companyName: "",
+      aboutUs: "",
+      companyPhone: "",
       present: null,
       want: null,
       textareaName: null,
