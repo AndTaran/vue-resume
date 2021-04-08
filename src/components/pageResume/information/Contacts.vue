@@ -13,17 +13,14 @@
 
 <script>
 import { ref } from "vue";
+
 export default {
   props: ["contact"],
+
   setup() {
     const isOpen = ref(false);
-    // const time = () => {
-    //   setTimeout(() => {
-    //     isOpen.value = !isOpen.value;
-    //   }, 200);
-    // };
+
     return {
-      // time,
       isOpen,
     };
   },

@@ -3,11 +3,11 @@ import { createStore } from "vuex";
 export default createStore({
   state() {
     return {
-      companyName: "",
-      aboutUs: "",
-      companyPhone: "",
+      companyName: null,
+      aboutUs: null,
+      companyPhone: null,
       present: null,
-      want: null,
+      target: null,
       textareaName: null,
     };
   },
@@ -24,8 +24,8 @@ export default createStore({
     present(state) {
       return state.present;
     },
-    want(state) {
-      return state.want;
+    target(state) {
+      return state.target;
     },
     textareaName(state) {
       return state.textareaName;
@@ -44,8 +44,8 @@ export default createStore({
     updatePresent(state, newPresent) {
       state.present = newPresent;
     },
-    updateWant(state, newWant) {
-      state.want = newWant;
+    updateTarget(state, newTarget) {
+      state.target = newTarget;
     },
     updateMessage(state, payload) {
       state.message = payload;
@@ -59,7 +59,7 @@ export default createStore({
       state.aboutUs = null;
       state.companyPhone = null;
       state.present = null;
-      state.want = null;
+      state.target = null;
     },
   },
   actions: {},

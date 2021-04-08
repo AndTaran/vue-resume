@@ -51,7 +51,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .fio {
   color: rgb(36, 106, 111);
   font-size: 60px;

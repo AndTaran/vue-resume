@@ -64,6 +64,7 @@
           {{ companyPhone }}
         </div>
       </div>
+      <button class="btn letter__btn" @click="postLetter">Отправить</button>
     </div>
   </div>
 </template>
@@ -71,21 +72,26 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { newPresent } from "../../utils/presentMap";
 import { newTitle } from "../../utils/titleMap";
 import { textareaName } from "../../utils/textareaMap";
+import axios from "axios";
 
 export default {
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const companyName = computed(() => store.getters.companyName);
     const companyPhone = computed(() => store.getters.companyPhone);
     const aboutUs = computed(() => store.getters.aboutUs);
     const present = computed(() => store.getters.present);
-    const title = computed(() => store.getters.want);
+    const title = computed(() => store.getters.target);
 
     return {
+      router,
+      store,
       companyName,
       companyPhone,
       aboutUs,
@@ -94,7 +100,36 @@ export default {
       newTitle,
       title,
       textareaName,
+      data: {},
     };
+  },
+
+  methods: {
+    async postLetter() {
+      await axios
+        .post(
+          `https://vue-resume-984ea-default-rtdb.firebaseio.com/invitation.json`,
+          {
+            company: `Представляют: ${this.newPresent(this.present)} - ${
+              this.companyName
+            }`,
+            aboutUs: this.aboutUs,
+            phone: this.companyPhone,
+            target: this.newTitle(this.title),
+          }
+        )
+        .then((response) => {
+          // console.log(response.config.data);
+          // response.data = `${this.companyName}`;
+          response.config.data = this.data;
+          console.log(this.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      await setTimeout(() => this.store.commit("clearForm"), 5000);
+      this.router.push("/");
+    },
   },
 };
 </script>
@@ -119,6 +154,16 @@ export default {
     word-break: normal;
     font-weight: 400;
     text-align: justify;
+  }
+  &__btn {
+    margin-top: 20px;
+    color: white;
+    background-color: rgb(36, 106, 111);
+    border: none;
+    width: 100%;
+    &:hover {
+      background-color: rgb(72, 127, 131);
+    }
   }
 }
 </style>

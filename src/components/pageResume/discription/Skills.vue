@@ -1,5 +1,5 @@
 <template>
-  <div class="title" @click="isOpen = !isOpen">
+  <div class="title skill__title" @click="isOpen = !isOpen">
     {{ skillsArr.title.toUpperCase() }}
   </div>
   <transition name="fade">
@@ -59,13 +59,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.title {
-  text-align: left;
+<style lang="scss">
+.skill__title {
   color: white;
-  font-size: 20px;
   background-color: rgb(36, 106, 111);
-  width: 80%;
   &:hover {
     background-color: rgb(72, 127, 131);
   }
@@ -74,7 +71,7 @@ export default {
   text-decoration: none;
   text-align: left;
   list-style: none;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 400;
   color: black;
   letter-spacing: 1px;

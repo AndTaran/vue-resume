@@ -6,8 +6,8 @@
 
   <form class="form" id="form">
     <div class="form-control">
-      <label for="want">Мы хотим:</label>
-      <select id="want" class="select" v-model="newWant">
+      <label for="target">Мы хотим:</label>
+      <select id="target" class="select" v-model="updateTarget">
         <option value="null" selected>Выберите</option>
         <option value="interview">Пригласить на собеседование</option>
         <option value="thanks">Поблагодарить за интерес</option>
@@ -57,11 +57,11 @@ export default {
   setup() {
     const store = useStore();
 
-    const titleTextarea = computed(() => store.getters.want);
+    const titleTextarea = computed(() => store.getters.target);
 
-    const newWant = computed({
-      get: () => store.getters.want,
-      set: (value) => store.commit("updateWant", value),
+    const updateTarget = computed({
+      get: () => store.getters.target,
+      set: (value) => store.commit("updateTarget", value),
     });
 
     const newPresent = computed({
@@ -89,7 +89,7 @@ export default {
       newAboutUs,
       newCompanyPhone,
       newPresent,
-      newWant,
+      updateTarget,
       store,
       titleTextarea,
       textareaName,
@@ -115,7 +115,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .titles__form {
   padding: 0 5px;
 }
@@ -186,5 +186,10 @@ export default {
   width: 70%;
   color: rgb(36, 106, 111);
   background-color: rgb(220, 220, 220);
+  cursor: pointer;
+  transition: background-color 400ms;
+  &:hover {
+    background-color: rgb(194, 194, 194);
+  }
 }
 </style>
