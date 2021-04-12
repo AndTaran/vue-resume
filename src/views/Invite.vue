@@ -1,5 +1,5 @@
 <template>
-  <Navbar title="Сайт - резюме" />
+  <Navbar title="Форма" />
   <AppPageInvite />
 </template>
 

@@ -5,7 +5,7 @@
 
       <div v-if="title == 'interview'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, {{ myName }}!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -27,7 +27,7 @@
 
       <div v-else-if="title == 'thanks'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, Андрей!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -48,7 +48,7 @@
 
       <div v-else-if="title == 'mistakes'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, Андрей!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -76,9 +76,12 @@ import { useRouter } from "vue-router";
 import { newPresent } from "../../utils/presentMap";
 import { newTitle } from "../../utils/titleMap";
 import { textareaName } from "../../utils/textareaMap";
-import axios from "axios";
 
 export default {
+  props: {
+    myName: String,
+  },
+
   setup() {
     const store = useStore();
     const router = useRouter();
@@ -88,6 +91,10 @@ export default {
     const aboutUs = computed(() => store.getters.aboutUs);
     const present = computed(() => store.getters.present);
     const title = computed(() => store.getters.target);
+
+    const date = new Date().getHours();
+    const times =
+      date < 17 ? "Добрый день" : date < 22 ? "Добрый вечер" : "Доброй ночи";
 
     return {
       router,
@@ -100,35 +107,19 @@ export default {
       newTitle,
       title,
       textareaName,
-      data: {},
+      times,
     };
   },
 
   methods: {
     async postLetter() {
-      await axios
-        .post(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/invitation.json`,
-          {
-            company: `Представляют: ${this.newPresent(this.present)} - ${
-              this.companyName
-            }`,
-            aboutUs: this.aboutUs,
-            phone: this.companyPhone,
-            target: this.newTitle(this.title),
-          }
-        )
-        .then((response) => {
-          // console.log(response.config.data);
-          // response.data = `${this.companyName}`;
-          response.config.data = this.data;
-          console.log(this.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      await setTimeout(() => this.store.commit("clearForm"), 5000);
-      this.router.push("/");
+      await this.store.dispatch("postLetter");
+
+      await setTimeout(() => {
+        this.store.commit("setLocalCompanyName", this.companyName);
+        this.store.commit("clearForm");
+        this.router.push("/request");
+      }, 1000);
     },
   },
 };
@@ -151,7 +142,7 @@ export default {
     font-weight: 700;
   }
   .company__textarea {
-    word-break: normal;
+    word-break: break-all;
     font-weight: 400;
     text-align: justify;
   }
