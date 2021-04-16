@@ -3,8 +3,8 @@
     <div class="nav__title">{{ title.toUpperCase() }}</div>
     <div>
       <router-link class="nav__link" to="/">Резюме</router-link>
-      <router-link class="nav__link" to="/about">Пригласить</router-link>
-      <router-link class="nav__link" to="/request" v-if="localCompanyName"
+      <router-link class="nav__link" to="/invite">Пригласить</router-link>
+      <router-link class="nav__link" to="/applications" v-if="localCompanyName"
         >Заявки</router-link
       >
     </div>

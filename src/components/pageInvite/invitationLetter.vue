@@ -118,7 +118,7 @@ export default {
       await setTimeout(() => {
         this.store.commit("setLocalCompanyName", this.companyName);
         this.store.commit("clearForm");
-        this.router.push("/request");
+        this.router.push("/applications");
       }, 1000);
     },
   },
@@ -154,6 +154,9 @@ export default {
     width: 100%;
     &:hover {
       background-color: rgb(72, 127, 131);
+    }
+    &:active {
+      box-shadow: 1px 2px 4px black;
     }
   }
 }

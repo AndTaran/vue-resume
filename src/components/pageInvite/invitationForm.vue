@@ -179,7 +179,8 @@ export default {
   border: 2px solid #42b983;
 }
 .btn {
-  border: 5px solid;
+  // border: 5px solid;
+  border: none;
   padding: 6px 0px;
   border-radius: 10px;
   font-size: 1rem;
@@ -190,6 +191,9 @@ export default {
   transition: background-color 400ms;
   &:hover {
     background-color: rgb(194, 194, 194);
+  }
+  &:active {
+    box-shadow: 1px 2px 4px black;
   }
 }
 </style>

@@ -8,7 +8,7 @@ const routes = [
     component: Home,
   },
   {
-    path: "/about",
+    path: "/invite",
     name: "Invite",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -17,10 +17,10 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Invite.vue"),
   },
   {
-    path: "/request",
-    name: "Request",
+    path: "/applications",
+    name: "Applications",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Request.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Applications.vue"),
   },
 ];
 
