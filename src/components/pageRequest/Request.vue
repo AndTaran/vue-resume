@@ -1,6 +1,6 @@
 <template>
-  <h2 class="request__title">{{ nameCompany }}</h2>
   <div class="request__block">
+    <h2 class="request__title">{{ nameCompany }}</h2>
     <ul class="items request__items" v-for="a in arr" :key="a.id">
       <li>ID заявки: {{ a.id }}</li>
       <li>Наименование: {{ a.company }}</li>
@@ -11,18 +11,34 @@
         <p>{{ a.aboutUs }}</p>
       </li>
       <button
+        @click="popupOpen(a.id, a.target, a.phone, a.aboutUs)"
+        class="request__btn"
+      >
+        Изменить
+      </button>
+      <button
         class="request__btn"
         @click.prevent="updateIdApplication(a.id, a.company)"
       >
         Удалить
       </button>
     </ul>
+    <request-popup
+      title="Изменить заявку"
+      class="popup"
+      v-if="isOpen"
+      @closePopup="closePopup"
+      @putRequest="putRequest"
+    ></request-popup>
   </div>
+  <div v-if="isOpen" @click="isOpen = false" class="modal-backdrop"></div>
 </template>
 
 <script>
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { textareaName } from "../../utils/textareaMap";
+import RequestPopup from "../pageRequest/RequestPopup";
 
 export default {
   props: {
@@ -31,16 +47,32 @@ export default {
   },
   setup() {
     const store = useStore();
+    const isOpen = ref(false);
 
-    return { textareaName, store };
+    return { textareaName, store, isOpen };
   },
   methods: {
-    async updateIdApplication(id, nameComp) {
+    async updateIdApplication(id, name) {
       await this.store.commit("setIdApplication", id);
-      await this.store.dispatch("removeRequest");
-      await this.store.dispatch("getEmailData", nameComp);
+      await this.store.dispatch("removeRequest", name);
+    },
+    async popupOpen(id, target, phone, aboutUs) {
+      await this.store.commit("setIdApplication", id);
+      await this.store.commit("updateTarget", target);
+      await this.store.commit("updateCompanyPhone", phone);
+      await this.store.commit("updateAboutUs", aboutUs);
+      this.isOpen = true;
+    },
+    async putRequest() {
+      await this.store.dispatch("updateRequest");
+      this.isOpen = false;
+    },
+    closePopup() {
+      this.isOpen = false;
+      this.store.commit("clearForm");
     },
   },
+  components: { RequestPopup },
 };
 </script>
 
@@ -73,7 +105,8 @@ export default {
   background-color: rgb(36, 106, 111);
   color: rgb(220, 220, 220);
   border: none;
-  width: 50%;
+  width: 40%;
+  margin: 0 5px;
   cursor: pointer;
   border-radius: 3px;
   transition: all 0.1s ease;
@@ -83,5 +116,14 @@ export default {
   &:active {
     box-shadow: 1px 2px 4px black;
   }
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
 }
 </style>

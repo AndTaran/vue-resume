@@ -96,20 +96,8 @@ export default {
     };
   },
   methods: {
-    // updateCompany() {
-    //   this.store.commit("updateCompanyName", this.newName);
-    //   this.store.commit("updateAboutUs", this.newAboutUs);
-    //   this.store.commit("updateCompanyPhone", this.newCompanyPhone);
-    //   this.store.commit("updatePresent", this.newPresent);
-    //   this.store.commit("updateWant", this.newWant);
-    // },
     clearForm() {
       this.store.commit("clearForm");
-      // this.newName = "";
-      // this.newAboutUs = "";
-      // this.newCompanyPhone = "";
-      // this.newPresent = null;
-      // this.newWant = null;
     },
   },
 };
@@ -179,7 +167,6 @@ export default {
   border: 2px solid #42b983;
 }
 .btn {
-  // border: 5px solid;
   border: none;
   padding: 6px 0px;
   border-radius: 10px;

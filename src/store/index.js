@@ -99,8 +99,10 @@ export default createStore({
           console.log(e);
         });
     },
-    async getEmailData({ commit }, name) {
-      let withoutDots = name.replace(/[/./]/g, "").trim();
+    async getEmailData({ commit }) {
+      let withoutDots = this.getters.localCompanyName
+        .replace(/[/./]/g, "")
+        .trim();
       try {
         const { data } = await axios.get(
           `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}.json`
@@ -117,12 +119,32 @@ export default createStore({
         console.log(error);
       }
     },
-    async removeRequest() {
+    async removeRequest({ dispatch }, name) {
+      let withoutDots = name.replace(/[/./]/g, "").trim();
       try {
         await axios.delete(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${this.getters.localCompanyName}/${this.getters.idApplication}.json`
+          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}/${this.getters.idApplication}.json`
         );
-        // dispatch("getEmailData", this.getters.localCompanyName);
+        dispatch("getEmailData");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateRequest({ dispatch, commit }) {
+      let withoutDots = this.getters.localCompanyName
+        .replace(/[/./]/g, "")
+        .trim();
+      try {
+        await axios.put(
+          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}/${this.getters.idApplication}.json`,
+          {
+            company: this.getters.localCompanyName,
+            phone: this.state.companyPhone,
+            aboutUs: this.state.aboutUs,
+          }
+        );
+        dispatch("getEmailData");
+        commit("clearForm");
       } catch (error) {
         console.log(error);
       }

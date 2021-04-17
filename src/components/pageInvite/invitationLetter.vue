@@ -115,11 +115,11 @@ export default {
     async postLetter() {
       await this.store.dispatch("postLetter");
 
-      await setTimeout(() => {
-        this.store.commit("setLocalCompanyName", this.companyName);
-        this.store.commit("clearForm");
-        this.router.push("/applications");
-      }, 1000);
+      this.store.commit("setLocalCompanyName", this.companyName);
+      this.store.commit("clearForm");
+      this.router.push("/applications");
+      // await setTimeout(() => {
+      // }, 1000);
     },
   },
 };
