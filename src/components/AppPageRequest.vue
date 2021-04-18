@@ -2,7 +2,7 @@
   <div class="container">
     <div class="wrapper">
       <div class="letter__title" v-if="localCompanyName">
-        <h2>{{ title }}</h2>
+        <h2>{{ title.toUpperCase() }}</h2>
         <request :nameCompany="localCompanyName" :arr="emailData" />
       </div>
     </div>
@@ -61,15 +61,3 @@ export default {
   components: { Request },
 };
 </script>
-
-<style lang="scss">
-.wrapper {
-  min-height: 100vh;
-  background-color: rgb(36, 106, 111);
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
-.letter__title h2 {
-  margin: 0;
-  padding-top: 30px;
-}
-</style>

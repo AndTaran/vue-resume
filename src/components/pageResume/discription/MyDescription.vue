@@ -50,19 +50,3 @@ export default {
   components: { Skills },
 };
 </script>
-
-<style lang="scss">
-.fio {
-  color: rgb(36, 106, 111);
-  font-size: 60px;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-.job {
-  color: rgb(36, 106, 111);
-  font-size: 30px;
-  letter-spacing: 2px;
-  font-weight: 500;
-  margin: 50px 0px;
-}
-</style>

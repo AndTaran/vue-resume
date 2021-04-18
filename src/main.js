@@ -4,5 +4,6 @@ import router from "./router";
 import store from "./store";
 import "../node_modules/normalize.css/normalize.css";
 import "./assets/fonts.css";
+import "./theme.scss";
 
 createApp(App).use(store).use(router).mount("#app");

@@ -58,23 +58,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.skill__title {
-  color: white;
-  background-color: rgb(36, 106, 111);
-  &:hover {
-    background-color: rgb(72, 127, 131);
-  }
-}
-.items {
-  text-decoration: none;
-  text-align: left;
-  list-style: none;
-  font-size: 20px;
-  font-weight: 400;
-  color: black;
-  letter-spacing: 1px;
-  word-break: normal;
-}
-</style>

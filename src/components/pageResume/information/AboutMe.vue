@@ -31,16 +31,3 @@ export default {
   components: { Contacts },
 };
 </script>
-
-<style lang="scss" scoped>
-.container {
-  padding: 20px 20px 0px;
-}
-.contacts {
-  margin: 20px 0;
-
-  &__img {
-    margin-bottom: 50px;
-  }
-}
-</style>

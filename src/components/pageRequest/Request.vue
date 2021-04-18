@@ -19,7 +19,7 @@
         Изменить
       </button>
       <button
-        class="request__btn"
+        class="request__btn danger"
         @click.prevent="updateIdApplication(a.id, a.company)"
       >
         Удалить
@@ -27,13 +27,12 @@
     </ul>
     <request-popup
       title="Изменить заявку"
-      class="popup"
       v-if="isOpen"
       @closePopup="closePopup"
       @putRequest="putRequest"
     ></request-popup>
   </div>
-  <div v-if="isOpen" @click="isOpen = false" class="modal-backdrop"></div>
+  <div v-if="isOpen" @click="closePopup" class="modal-backdrop"></div>
 </template>
 
 <script>
@@ -64,74 +63,19 @@ export default {
       await this.store.commit("updateCompanyPhone", phone);
       await this.store.commit("updateAboutUs", aboutUs);
       this.isOpen = true;
+      document.body.classList.add("modal-open");
     },
     async putRequest() {
       await this.store.dispatch("updateRequest");
+      document.body.classList.remove("modal-open");
       this.isOpen = false;
     },
     closePopup() {
       this.isOpen = false;
       this.store.commit("clearForm");
+      document.body.classList.remove("modal-open");
     },
   },
   components: { RequestPopup },
 };
 </script>
-
-<style lang="scss">
-.request__title {
-  letter-spacing: 2px;
-  font-weight: 500;
-}
-.request__block {
-  padding: 10px 0;
-}
-.request__items {
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 50%;
-  margin: 10px auto;
-  padding: 15px;
-  font-weight: 300;
-  background-color: rgb(220, 220, 220);
-  transition: all 0.4s;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 3px 3px 5px black;
-  }
-}
-.request__textarea {
-  word-wrap: break-word;
-  text-align: justify;
-}
-.request__items li {
-  margin-bottom: 20px;
-}
-.request__btn {
-  background-color: rgb(36, 106, 111);
-  color: rgb(220, 220, 220);
-  border: none;
-  width: 40%;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: all 0.1s ease;
-  &:hover {
-    background-color: rgb(72, 127, 131);
-  }
-  &:active {
-    box-shadow: 1px 2px 4px black;
-  }
-}
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1;
-}
-</style>
