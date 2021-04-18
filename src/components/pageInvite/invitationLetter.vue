@@ -118,8 +118,6 @@ export default {
       this.store.commit("setLocalCompanyName", this.companyName);
       this.store.commit("clearForm");
       this.router.push("/applications");
-      // await setTimeout(() => {
-      // }, 1000);
     },
   },
 };
@@ -142,7 +140,7 @@ export default {
     font-weight: 700;
   }
   .company__textarea {
-    word-break: break-all;
+    word-wrap: break-word;
     font-weight: 400;
     text-align: justify;
   }

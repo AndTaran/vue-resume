@@ -8,7 +8,9 @@
       <li>{{ arr.id }}</li>
       <li v-if="a.aboutUs">
         {{ textareaName(a.target) }}
-        <p>{{ a.aboutUs }}</p>
+        <p class="request__textarea" style="white-space: pre-line">
+          {{ a.aboutUs }}
+        </p>
       </li>
       <button
         @click="popupOpen(a.id, a.target, a.phone, a.aboutUs)"
@@ -81,8 +83,10 @@ export default {
   letter-spacing: 2px;
   font-weight: 500;
 }
+.request__block {
+  padding: 10px 0;
+}
 .request__items {
-  word-break: break-all;
   cursor: pointer;
   text-align: center;
   border: 1px solid black;
@@ -97,6 +101,10 @@ export default {
     transform: translateY(-5px);
     box-shadow: 3px 3px 5px black;
   }
+}
+.request__textarea {
+  word-wrap: break-word;
+  text-align: justify;
 }
 .request__items li {
   margin-bottom: 20px;

@@ -144,6 +144,7 @@ export default {
   border-radius: 3px;
   font-size: 1rem;
   resize: vertical;
+  background-color: rgb(220, 220, 220);
 }
 
 .form-control small {

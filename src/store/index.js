@@ -13,7 +13,6 @@ export default createStore({
       present: null,
       target: null,
       textareaName: null,
-      // openLetter: false,
       emailData: [],
       localCompanyName: localStorage.getItem(TOKEN_KEY),
       idApplication: null,
@@ -27,7 +26,6 @@ export default createStore({
     present: (state) => state.present,
     target: (state) => state.target,
     textareaName: (state) => state.textareaName,
-    // openLetter: (state) => state.openLetter,
     emailData: (state) => state.emailData,
     localCompanyName: (state) => state.localCompanyName,
     idApplication: (state) => state.idApplication,
@@ -55,9 +53,6 @@ export default createStore({
     updateTextareaName(state, payload) {
       state.textareaName = payload;
     },
-    // updateOpenLetter(state, payload) {
-    //   state.openLetter = payload;
-    // },
     setEmailData(state, payload) {
       state.emailData = payload;
     },
