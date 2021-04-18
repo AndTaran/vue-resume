@@ -5,7 +5,7 @@
 
       <div v-if="title == 'interview'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, {{ myName }}!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -27,7 +27,7 @@
 
       <div v-else-if="title == 'thanks'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, Андрей!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -48,7 +48,7 @@
 
       <div v-else-if="title == 'mistakes'">
         <h4 class="company__title">
-          <p>Добрый день, Андрей!</p>
+          <p>{{ times }}, Андрей!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
         <strong>{{ companyName }}</strong>
@@ -64,6 +64,7 @@
           {{ companyPhone }}
         </div>
       </div>
+      <button class="btn letter__btn" @click="postLetter">Отправить</button>
     </div>
   </div>
 </template>
@@ -71,21 +72,33 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { newPresent } from "../../utils/presentMap";
 import { newTitle } from "../../utils/titleMap";
 import { textareaName } from "../../utils/textareaMap";
 
 export default {
+  props: {
+    myName: String,
+  },
+
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const companyName = computed(() => store.getters.companyName);
     const companyPhone = computed(() => store.getters.companyPhone);
     const aboutUs = computed(() => store.getters.aboutUs);
     const present = computed(() => store.getters.present);
-    const title = computed(() => store.getters.want);
+    const title = computed(() => store.getters.target);
+
+    const date = new Date().getHours();
+    const times =
+      date < 17 ? "Добрый день" : date < 22 ? "Добрый вечер" : "Доброй ночи";
 
     return {
+      router,
+      store,
       companyName,
       companyPhone,
       aboutUs,
@@ -94,7 +107,18 @@ export default {
       newTitle,
       title,
       textareaName,
+      times,
     };
+  },
+
+  methods: {
+    async postLetter() {
+      await this.store.dispatch("postLetter");
+
+      this.store.commit("setLocalCompanyName", this.companyName);
+      this.store.commit("clearForm");
+      this.router.push("/applications");
+    },
   },
 };
 </script>
@@ -116,9 +140,22 @@ export default {
     font-weight: 700;
   }
   .company__textarea {
-    word-break: normal;
+    word-wrap: break-word;
     font-weight: 400;
     text-align: justify;
+  }
+  &__btn {
+    margin-top: 20px;
+    color: white;
+    background-color: rgb(36, 106, 111);
+    border: none;
+    width: 100%;
+    &:hover {
+      background-color: rgb(72, 127, 131);
+    }
+    &:active {
+      box-shadow: 1px 2px 4px black;
+    }
   }
 }
 </style>

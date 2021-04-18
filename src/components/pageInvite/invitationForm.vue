@@ -6,8 +6,8 @@
 
   <form class="form" id="form">
     <div class="form-control">
-      <label for="want">Мы хотим:</label>
-      <select id="want" class="select" v-model="newWant">
+      <label for="target">Мы хотим:</label>
+      <select id="target" class="select" v-model="updateTarget">
         <option value="null" selected>Выберите</option>
         <option value="interview">Пригласить на собеседование</option>
         <option value="thanks">Поблагодарить за интерес</option>
@@ -57,11 +57,11 @@ export default {
   setup() {
     const store = useStore();
 
-    const titleTextarea = computed(() => store.getters.want);
+    const titleTextarea = computed(() => store.getters.target);
 
-    const newWant = computed({
-      get: () => store.getters.want,
-      set: (value) => store.commit("updateWant", value),
+    const updateTarget = computed({
+      get: () => store.getters.target,
+      set: (value) => store.commit("updateTarget", value),
     });
 
     const newPresent = computed({
@@ -89,33 +89,21 @@ export default {
       newAboutUs,
       newCompanyPhone,
       newPresent,
-      newWant,
+      updateTarget,
       store,
       titleTextarea,
       textareaName,
     };
   },
   methods: {
-    // updateCompany() {
-    //   this.store.commit("updateCompanyName", this.newName);
-    //   this.store.commit("updateAboutUs", this.newAboutUs);
-    //   this.store.commit("updateCompanyPhone", this.newCompanyPhone);
-    //   this.store.commit("updatePresent", this.newPresent);
-    //   this.store.commit("updateWant", this.newWant);
-    // },
     clearForm() {
       this.store.commit("clearForm");
-      // this.newName = "";
-      // this.newAboutUs = "";
-      // this.newCompanyPhone = "";
-      // this.newPresent = null;
-      // this.newWant = null;
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .titles__form {
   padding: 0 5px;
 }
@@ -156,6 +144,7 @@ export default {
   border-radius: 3px;
   font-size: 1rem;
   resize: vertical;
+  background-color: rgb(220, 220, 220);
 }
 
 .form-control small {
@@ -179,12 +168,20 @@ export default {
   border: 2px solid #42b983;
 }
 .btn {
-  border: 5px solid;
+  border: none;
   padding: 6px 0px;
   border-radius: 10px;
   font-size: 1rem;
   width: 70%;
   color: rgb(36, 106, 111);
   background-color: rgb(220, 220, 220);
+  cursor: pointer;
+  transition: background-color 400ms;
+  &:hover {
+    background-color: rgb(194, 194, 194);
+  }
+  &:active {
+    box-shadow: 1px 2px 4px black;
+  }
 }
 </style>

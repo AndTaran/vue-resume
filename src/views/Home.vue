@@ -1,5 +1,5 @@
 <template>
-  <Navbar title="Сайт - резюме" />
+  <Navbar title="Pезюме" />
   <app-page-resume></app-page-resume>
 </template>
 

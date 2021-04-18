@@ -8,7 +8,7 @@
         ></invitation-form>
       </div>
       <div class="blocks__right">
-        <invitation-letter></invitation-letter>
+        <invitation-letter myName="Андрей"></invitation-letter>
       </div>
     </div>
   </div>
