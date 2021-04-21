@@ -3,7 +3,7 @@
     <div class="fio">{{ surname }}</div>
     <div class="fio">{{ name }}</div>
     <div class="job">{{ job }}</div>
-    <skills v-for="s in skillsArr" :key="s.title" :skillsArr="s" />
+    <skills v-for="s in skillsArr" :key="s.title" :arr="s" />
   </div>
 </template>
 
@@ -23,10 +23,11 @@ export default {
         skill: "HTML",
         skill2: "CSS",
         skill3: "SCSS",
-        skill4: "JavaScipt",
+        skill4: "JavaScript",
         skill5: "Vue",
         skill6: "Vuex",
-        skill7: "GIT",
+        skill7: "Axios",
+        skill8: "GIT",
       },
       {
         title: "Образование",

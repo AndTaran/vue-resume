@@ -6,7 +6,7 @@
     <div class="content" v-if="isOpen">
       <div class="phone">{{ contact.phone }}</div>
       <div class="email">{{ contact.email }}</div>
-      <div class="text">{{ contact.text }}</div>
+      <p class="text">{{ contact.text }}</p>
     </div>
   </transition>
 </template>

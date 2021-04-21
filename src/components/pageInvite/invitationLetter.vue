@@ -113,9 +113,7 @@ export default {
 
   methods: {
     async postLetter() {
-      await this.store.dispatch("postLetter");
-
-      this.store.commit("setLocalCompanyName", this.companyName);
+      await this.store.dispatch("postLetter", this.companyName);
       this.store.commit("clearForm");
       this.router.push("/applications");
     },

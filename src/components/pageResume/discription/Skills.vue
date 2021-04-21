@@ -1,45 +1,46 @@
 <template>
   <div class="title skill__title" @click="isOpen = !isOpen">
-    {{ skillsArr.title.toUpperCase() }}
+    {{ arr.title.toUpperCase() }}
   </div>
   <transition name="fade">
     <div class="content" v-if="isOpen">
       <div>
         <ul class="items">
-          <li>{{ skillsArr.skill }}</li>
-          <li>{{ skillsArr.skill2 }}</li>
-          <li>{{ skillsArr.skill3 }}</li>
-          <li>{{ skillsArr.skill4 }}</li>
-          <li>{{ skillsArr.skill5 }}</li>
-          <li>{{ skillsArr.skill6 }}</li>
-          <li>{{ skillsArr.skill7 }}</li>
+          <li>{{ arr.skill }}</li>
+          <li>{{ arr.skill2 }}</li>
+          <li>{{ arr.skill3 }}</li>
+          <li>{{ arr.skill4 }}</li>
+          <li>{{ arr.skill5 }}</li>
+          <li>{{ arr.skill6 }}</li>
+          <li>{{ arr.skill7 }}</li>
+          <li>{{ arr.skill8 }}</li>
         </ul>
       </div>
 
       <div>
         <ul class="items">
           <li>
-            <strong>{{ skillsArr.university }}</strong>
+            <strong>{{ arr.university }}</strong>
           </li>
-          <li>{{ skillsArr.faculty }}</li>
-          <li>{{ skillsArr.specialization }}</li>
-          <li>{{ skillsArr.yearOfEnding }}</li>
+          <li>{{ arr.faculty }}</li>
+          <li>{{ arr.specialization }}</li>
+          <li>{{ arr.yearOfEnding }}</li>
         </ul>
       </div>
 
       <div>
         <ul class="items">
           <li>
-            <strong>{{ skillsArr.company }}</strong>
+            <strong>{{ arr.company }}</strong>
           </li>
-          <li>{{ skillsArr.position }}</li>
-          <li>{{ skillsArr.yearsOfWork }}</li>
+          <li>{{ arr.position }}</li>
+          <li>{{ arr.yearsOfWork }}</li>
           <br />
           <li>
-            <strong>{{ skillsArr.company2 }}</strong>
+            <strong>{{ arr.company2 }}</strong>
           </li>
-          <li>{{ skillsArr.position2 }}</li>
-          <li>{{ skillsArr.yearsOfWork2 }}</li>
+          <li>{{ arr.position2 }}</li>
+          <li>{{ arr.yearsOfWork2 }}</li>
         </ul>
       </div>
     </div>
@@ -49,7 +50,7 @@
 <script>
 import { ref } from "vue";
 export default {
-  props: ["skillsArr"],
+  props: ["arr"],
   setup() {
     const isOpen = ref(false);
     return {

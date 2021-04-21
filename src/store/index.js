@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios/axios";
 import { createStore } from "vuex";
 const TOKEN_KEY = "localCompanyName";
 
@@ -74,41 +74,32 @@ export default createStore({
   },
 
   actions: {
-    async postLetter() {
+    async postLetter({ commit }, name) {
       let withoutDots = this.state.companyName.replace(/[/./]/g, "").trim();
 
-      await axios
-        .post(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}.json`,
-          {
-            company: this.state.companyName,
-            aboutUs: this.state.aboutUs,
-            phone: this.state.companyPhone,
-            target: this.state.target,
-          }
-        )
-        .then((response) => {
-          console.log("response:", response);
-        })
-        .catch((e) => {
-          console.log(e);
+      try {
+        await axios.post(`/${withoutDots}.json`, {
+          company: this.state.companyName,
+          aboutUs: this.state.aboutUs,
+          phone: this.state.companyPhone,
+          target: this.state.target,
         });
+        commit("setLocalCompanyName", name);
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getEmailData({ commit }) {
       let withoutDots = this.getters.localCompanyName
         .replace(/[/./]/g, "")
         .trim();
       try {
-        const { data } = await axios.get(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}.json`
-        );
+        const { data } = await axios.get(`/${withoutDots}.json`);
         if (data == null) {
-          console.log(data);
           commit("setEmailData", data);
         } else {
           const requests = Object.keys(data).map((id) => ({ ...data[id], id }));
           commit("setEmailData", requests);
-          console.log("requests:", requests);
         }
       } catch (error) {
         console.log(error);
@@ -118,7 +109,7 @@ export default createStore({
       let withoutDots = name.replace(/[/./]/g, "").trim();
       try {
         await axios.delete(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}/${this.getters.idApplication}.json`
+          `/${withoutDots}/${this.getters.idApplication}.json`
         );
         dispatch("getEmailData");
       } catch (error) {
@@ -130,14 +121,12 @@ export default createStore({
         .replace(/[/./]/g, "")
         .trim();
       try {
-        await axios.put(
-          `https://vue-resume-984ea-default-rtdb.firebaseio.com/${withoutDots}/${this.getters.idApplication}.json`,
-          {
-            company: this.getters.localCompanyName,
-            phone: this.state.companyPhone,
-            aboutUs: this.state.aboutUs,
-          }
-        );
+        await axios.put(`/${withoutDots}/${this.getters.idApplication}.json`, {
+          company: this.getters.localCompanyName,
+          phone: this.state.companyPhone,
+          aboutUs: this.state.aboutUs,
+          target: this.state.target,
+        });
         dispatch("getEmailData");
         commit("clearForm");
       } catch (error) {
