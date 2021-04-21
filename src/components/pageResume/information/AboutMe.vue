@@ -23,7 +23,7 @@ export default {
       {
         title: "О себе",
         text:
-          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, sequi. Voluptate mollitia harum eum necessitatibus voluptates, sapiente error totam tenetur earum quas reiciendis doloremque unde quos non commodi quidem in?",
+          "Здравствуйте! Меня зовут Андрей. Ещё в университете с друзьями изучали html, css и подрабатывали на верстке сайтов. А после была необходимость найти постоянную работу.\n На данный момент уже могу осуществить свою мечту и связать свою жизнь с IT сферой. Продолжил самостоятельное обучение, изучаю javascript и фреймворк vue. \nИмею хорошие способности к самообучению и саморазвитию.",
       },
     ];
     return { contact };
@@ -31,16 +31,3 @@ export default {
   components: { Contacts },
 };
 </script>
-
-<style lang="scss" scoped>
-.container {
-  padding: 20px 20px 0px;
-}
-.contacts {
-  margin: 20px 0;
-
-  &__img {
-    margin-bottom: 50px;
-  }
-}
-</style>

@@ -113,49 +113,10 @@ export default {
 
   methods: {
     async postLetter() {
-      await this.store.dispatch("postLetter");
-
-      this.store.commit("setLocalCompanyName", this.companyName);
+      await this.store.dispatch("postLetter", this.companyName);
       this.store.commit("clearForm");
       this.router.push("/applications");
     },
   },
 };
 </script>
-
-<style lang="scss">
-.letter {
-  font-family: "Marck Script", cursive;
-  padding: 40px 80px 0px;
-  color: black;
-  letter-spacing: 1px;
-  font-weight: 400;
-  font-size: 20px;
-  &__border {
-    border: 1px solid black;
-    padding: 15px;
-    color: rgb(36, 106, 111);
-  }
-  .company__title {
-    font-weight: 700;
-  }
-  .company__textarea {
-    word-wrap: break-word;
-    font-weight: 400;
-    text-align: justify;
-  }
-  &__btn {
-    margin-top: 20px;
-    color: white;
-    background-color: rgb(36, 106, 111);
-    border: none;
-    width: 100%;
-    &:hover {
-      background-color: rgb(72, 127, 131);
-    }
-    &:active {
-      box-shadow: 1px 2px 4px black;
-    }
-  }
-}
-</style>

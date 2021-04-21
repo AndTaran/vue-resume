@@ -22,5 +22,3 @@ export default {
   components: { invitationForm, invitationLetter },
 };
 </script>
-
-<style></style>

@@ -52,23 +52,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.request__form {
-  position: absolute;
-  top: 20%;
-  left: 32%;
-  width: 30%;
-  min-height: 300px;
-  // margin: 0 auto;
-  z-index: 200;
-  background-color: rgb(72, 127, 131);
-  padding: 30px;
-}
-.request__title {
-  font-size: 20px;
-}
-.btn.btn {
-  margin-bottom: 10px;
-}
-</style>

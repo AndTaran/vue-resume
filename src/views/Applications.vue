@@ -11,5 +11,3 @@ export default {
   components: { Navbar, AppPageRequest },
 };
 </script>
-
-<style></style>
