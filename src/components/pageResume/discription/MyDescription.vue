@@ -1,8 +1,12 @@
 <template>
   <div class="container">
-    <div class="fio">{{ surname }}</div>
-    <div class="fio">{{ name }}</div>
-    <div class="job">{{ job }}</div>
+    <div class="mb-14 lg:mb-20 xl:mb-14">
+      <div class="fio text-2xl sm:text-5xl xl:text-6xl">{{ surname }}</div>
+      <div class="fio text-2xl md:text-5xl xl:text-6xl">{{ name }}</div>
+      <div class="job mt-16 text-lg md:text-2xl lg:text-3xl xl:text-4xl">
+        {{ job }}
+      </div>
+    </div>
     <skills v-for="s in skillsArr" :key="s.title" :arr="s" />
   </div>
 </template>
