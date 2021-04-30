@@ -1,25 +1,31 @@
 <template>
-  <div class="request__block">
-    <h2 class="request__title">{{ nameCompany }}</h2>
-    <ul class="items request__items" v-for="a in arr" :key="a.id">
-      <li>ID заявки: {{ a.id }}</li>
-      <li>Наименование: {{ a.company }}</li>
-      <li v-if="a.phone">Контактный телефон: {{ a.phone }}</li>
+  <div class="request__block py-5">
+    <h2 class="request__title text-lg lg:text-xl xl:text-2xl">
+      {{ nameCompany }}
+    </h2>
+    <ul
+      class="items request__items text-xs w-11/12 md:text-lg md:px-10 lg:w-8/12 lg:text-xl xl:w-6/12 xl:text-2xl"
+      v-for="a in arr"
+      :key="a.id"
+    >
+      <li><strong>ID заявки:</strong> {{ a.id }}</li>
+      <li><strong>Наименование:</strong> {{ a.company }}</li>
+      <li v-if="a.phone"><strong>Контактный телефон:</strong> {{ a.phone }}</li>
       <li>{{ arr.id }}</li>
       <li v-if="a.aboutUs">
-        {{ textareaName(a.target) }}
+        <strong>{{ textareaName(a.target) }}</strong>
         <p class="request__textarea" style="white-space: pre-line">
           {{ a.aboutUs }}
         </p>
       </li>
       <button
         @click="popupOpen(a.id, a.target, a.phone, a.aboutUs)"
-        class="request__btn"
+        class="request__btn uppercase"
       >
         Изменить
       </button>
       <button
-        class="request__btn danger"
+        class="request__btn danger uppercase"
         @click.prevent="updateIdApplication(a.id, a.company)"
       >
         Удалить
@@ -62,18 +68,19 @@ export default {
       await this.store.commit("updateTarget", target);
       await this.store.commit("updateCompanyPhone", phone);
       await this.store.commit("updateAboutUs", aboutUs);
+      document.body.classList.toggle("modal-open");
       this.isOpen = true;
-      document.body.classList.add("modal-open");
     },
     async putRequest() {
       await this.store.dispatch("updateRequest");
-      document.body.classList.remove("modal-open");
+      document.body.classList.toggle("modal-open");
+
       this.isOpen = false;
     },
     closePopup() {
       this.isOpen = false;
       this.store.commit("clearForm");
-      document.body.classList.remove("modal-open");
+      document.body.classList.toggle("modal-open");
     },
   },
   components: { RequestPopup },

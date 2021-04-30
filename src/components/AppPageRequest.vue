@@ -1,11 +1,14 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <div class="letter__title" v-if="localCompanyName">
-        <h2>{{ title.toUpperCase() }}</h2>
-        <app-loader v-if="loading"></app-loader>
-        <request v-else :nameCompany="localCompanyName" :arr="emailData" />
-      </div>
+      <h2
+        class="letter__title py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl"
+        v-if="localCompanyName"
+      >
+        {{ title.toUpperCase() }}
+      </h2>
+      <app-loader v-if="loading"></app-loader>
+      <request v-else :nameCompany="localCompanyName" :arr="emailData" />
     </div>
   </div>
 </template>
@@ -34,7 +37,7 @@ export default {
       set: (value) => store.commit("setLocalCompanyName", value),
     });
 
-    onMounted(async () => {
+    onMounted(() => {
       function get() {
         store.dispatch("getEmailData", localCompanyName.value);
         loading.value = false;
