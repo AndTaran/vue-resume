@@ -5,17 +5,19 @@
   >
     {{ contact.title.toUpperCase() }}
   </div>
-  <transition name="fade">
+
+  <transition-group name="fade">
     <div class="content" v-if="isOpen">
       <div class="phone text-center text-sm sm:text-left xl:text-xl">
         {{ contact.phone }}
       </div>
+
       <div class="email text-center text-sm sm:text-left xl:text-xl">
         {{ contact.email }}
       </div>
       <p class="text text-sm xl:text-xl">{{ contact.text }}</p>
     </div>
-  </transition>
+  </transition-group>
 </template>
 
 <script>

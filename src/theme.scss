@@ -87,9 +87,9 @@
     &__menu {
       position: absolute;
       background-color: black;
-      width: 250px;
+      width: 200px;
       top: 35px;
-      right: -30px;
+      right: 0px;
       .menu__link {
         margin: 15px 0;
       }
@@ -142,12 +142,15 @@
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all .3s linear;
+  position: relative;
+  bottom: 0px;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+  bottom: 30px;
 }
 
 // discription
@@ -176,7 +179,6 @@
   text-decoration: none;
   text-align: left;
   list-style: none;
-  font-size: 20px;
   font-weight: 400;
   color: black;
   letter-spacing: 1px;
@@ -310,63 +312,65 @@
 
 //pageRequest 
 
-.request__title {
-  letter-spacing: 2px;
-  font-weight: 500;
+.request__block {
   color: rgb(220, 220, 220);
-}
-
-.request__items {
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 10px auto;
-  padding: 15px;
-  font-weight: 300;
-  background-color: rgb(220, 220, 220);
-  transition: all 0.4s;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 3px 3px 5px black;
+  .request__title {
+    letter-spacing: 2px;
+    font-weight: 500;
+    
   }
-}
-.request__textarea {
-  word-wrap: break-word;
-  text-align: justify;
-}
-.request__items li {
-  margin-bottom: 20px;
-}
-.request__btn {
-  background-color: rgb(36, 106, 111);
-  color: rgb(220, 220, 220);
-  border: none;
-  width: 40%;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: all 0.1s ease;
-  letter-spacing: 1px;
-  &:hover {
-    background-color: rgb(72, 127, 131);
+  .request__items {
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 15px;
+    font-weight: 300;
+    background-color: rgb(220, 220, 220);
+    transition: all 0.4s;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 3px 3px 5px black;
+    }
   }
-  &:active {
-    box-shadow: 1px 2px 4px black;
+  .request__textarea {
+    word-wrap: break-word;
+    text-align: justify;
   }
-}
-.danger {
-  background-color: #e53935;
-  color: #fff;
-  &:hover {
-    background-color: #c00804;
+  .request__items li {
+    margin-bottom: 20px;
+  }
+  .request__btn {
+    background-color: rgb(36, 106, 111);
+    color: rgb(220, 220, 220);
+    border: none;
+    width: 40%;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.1s ease;
+    letter-spacing: 1px;
+    &:hover {
+      background-color: rgb(72, 127, 131);
+    }
+    &:active {
+      box-shadow: 1px 2px 4px black;
+    }
+  }
+  .danger {
+    background-color: #e53935;
+    color: #fff;
+    &:hover {
+      background-color: #c00804;
+    }
   }
 }
 
 body.modal-open {
   overflow: hidden;
-  margin-right: 18px;
 }
+
 
 .modal-backdrop {
   position: fixed;

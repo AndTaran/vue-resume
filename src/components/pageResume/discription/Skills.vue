@@ -37,7 +37,7 @@
 
       <div>
         <ul
-          class="items text-center sm:text-left text-sm md:text-lg xl:text-xl"
+          class="items pb-2 text-center sm:text-left text-sm md:text-lg xl:text-xl"
         >
           <li>
             <strong>{{ arr.company }}</strong>

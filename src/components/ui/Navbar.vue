@@ -1,5 +1,5 @@
 <template>
-  <nav class="nav text-sm lg:text-lg xl:text-xl">
+  <nav class="nav text-sm lg:text-base xl:text-lg">
     <div class="nav__title">{{ title.toUpperCase() }}</div>
     <div class="hidden sm:block">
       <router-link class="nav__link" to="/">Резюме</router-link>
@@ -8,12 +8,13 @@
         >Заявки</router-link
       >
     </div>
+
     <div class="burger block sm:hidden">
       <div class="burger__btn" @click="open = !open">
         <span></span>
       </div>
       <transition name="fade">
-        <div class="burger__menu flex flex-col" v-if="open">
+        <div class="burger__menu flex flex-col bg-black" v-if="open">
           <router-link class="nav__link menu__link" to="/">Резюме</router-link>
           <router-link class="nav__link menu__link" to="/invite"
             >Пригласить</router-link
