@@ -1,11 +1,16 @@
 <template>
-  <div class="title skill__title" @click="isOpen = !isOpen">
+  <div
+    class="title skill__title w-full text-center sm:w-2/3 sm:text-left text-xs md:text-sm xl:text-xl"
+    @click="isOpen = !isOpen"
+  >
     {{ arr.title.toUpperCase() }}
   </div>
   <transition name="fade">
     <div class="content" v-if="isOpen">
       <div>
-        <ul class="items">
+        <ul
+          class="items text-center sm:text-left text-sm md:text-lg xl:text-xl"
+        >
           <li>{{ arr.skill }}</li>
           <li>{{ arr.skill2 }}</li>
           <li>{{ arr.skill3 }}</li>
@@ -18,7 +23,9 @@
       </div>
 
       <div>
-        <ul class="items">
+        <ul
+          class="items text-center sm:text-left text-sm md:text-lg xl:text-xl"
+        >
           <li>
             <strong>{{ arr.university }}</strong>
           </li>
@@ -29,7 +36,9 @@
       </div>
 
       <div>
-        <ul class="items">
+        <ul
+          class="items pb-2 text-center sm:text-left text-sm md:text-lg xl:text-xl"
+        >
           <li>
             <strong>{{ arr.company }}</strong>
           </li>

@@ -1,10 +1,15 @@
 <template>
   <div class="titles__form">
-    <h2 class="form__title">{{ title }}</h2>
-    <h4 class="subtitle">{{ subtitle }}</h4>
+    <h2 class="form__title sm:text-2xl lg:text-3xl xl:text-4xl">{{ title }}</h2>
+    <h4 class="subtitle pt-2 mb-10 sm:text-lg lg:text-xl xl:text-2xl">
+      {{ subtitle }}
+    </h4>
   </div>
 
-  <form class="form" id="form">
+  <form
+    class="form text-xs sm:text-sm lg:text-base xl:text-lg lg:mx-3.5"
+    id="form"
+  >
     <div class="form-control">
       <label for="target">Мы хотим:</label>
       <select id="target" class="select" v-model="updateTarget">
@@ -27,7 +32,7 @@
 
     <div class="form-control">
       <label for="companyName">Наименование</label>
-      <input type="text" id="companyName" v-model="newName" />
+      <input type="text " id="companyName" v-model="newName" />
     </div>
 
     <div class="form-control">
@@ -40,7 +45,13 @@
       <input type="text" id="phone" v-model="newCompanyPhone" />
     </div>
 
-    <button class="btn" @click="clearForm" type="reset">Очистить</button>
+    <button
+      class="btn text-xs sm:text-sm lg:text-base xl:text-lg"
+      @click="clearForm"
+      type="reset"
+    >
+      Очистить
+    </button>
   </form>
 </template>
 

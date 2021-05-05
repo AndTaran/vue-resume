@@ -16,14 +16,10 @@
     display: flex;
     justify-content: space-between;
     &__left {
-      width: 30%;
       background-color: rgb(36, 106, 111);
-      padding: 80px 0;
     }
     &__right {
-      width: 70%;
       background-color: rgb(220, 220, 220);
-      padding: 80px 0;
       border-right: 8px solid rgb(36, 106, 111);
     }
   }
@@ -65,21 +61,52 @@
       border-bottom: 2px solid #3eaf7c;
     }
   }
+
+  .burger {
+    position: relative;
+  
+    &__btn > span,
+    &__btn > span::before,
+    &__btn > span::after {
+      display: block;
+      position: absolute;
+      top: 8px;
+      width: 30px;
+      height: 1px;
+      background-color: white;
+    }
+    &__btn > span::before {
+      content: "";
+      top: -8px;
+    }
+    &__btn > span::after {
+      content: "";
+      top: 8px;
+    }
+  
+    &__menu {
+      position: absolute;
+      background-color: black;
+      width: 200px;
+      top: 35px;
+      right: 0px;
+      .menu__link {
+        margin: 15px 0;
+      }
+    }
+  }
 }
+
 
 //pageResume
 
 //information
-.contacts__img {
-  margin-bottom: 70px;
-}
+
 
 .title {
-  width: 80%;
   color: black;
   background-color: rgb(221, 221, 221);
   padding: 10px;
-  font-size: 20px;
   letter-spacing: 4px;
   border-radius: 5px;
   text-align: left;
@@ -115,12 +142,15 @@
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all .3s linear;
+  position: relative;
+  bottom: 0px;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+  bottom: 30px;
 }
 
 // discription
@@ -134,8 +164,8 @@
   color: rgb(36, 106, 111);
   font-size: 30px;
   letter-spacing: 2px;
-  font-weight: 500;
-  margin: 50px 0px;
+  font-weight: 500; 
+  
 }
 
 .skill__title {
@@ -149,7 +179,6 @@
   text-decoration: none;
   text-align: left;
   list-style: none;
-  font-size: 20px;
   font-weight: 400;
   color: black;
   letter-spacing: 1px;
@@ -166,19 +195,16 @@
   font-weight: 300;
 }
 .form__title {
-  font-size: 30px;
   font-weight: 500;
   color: rgb(220, 220, 220);
 }
 .subtitle {
   font-weight: 300;
-  font-size: 25px;
   color: rgb(220, 220, 220);
-  margin-bottom: 70px;
 }
 
 .form {
-  padding: 15px 15px;
+  padding: 15px;
   color: rgb(220, 220, 220);
 }
 .form-control {
@@ -188,6 +214,7 @@
 .form-control input,
 .form-control select,
 .form-control textarea {
+  color: black;
   font-weight: 300;
   margin: 0;
   outline: none;
@@ -196,7 +223,6 @@
   width: 100%;
   padding: 8px 0px;
   border-radius: 3px;
-  font-size: 1rem;
   resize: vertical;
   background-color: rgb(220, 220, 220);
 }
@@ -228,12 +254,13 @@
   border: none;
   padding: 6px 0px;
   border-radius: 10px;
-  font-size: 1rem;
   width: 70%;
   color: rgb(36, 106, 111);
   background-color: rgb(220, 220, 220);
   cursor: pointer;
   transition: background-color 400ms;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   &:hover {
     background-color: rgb(194, 194, 194);
   }
@@ -246,13 +273,14 @@
 
 .letter {
   font-family: "Marck Script", cursive;
-  padding: 40px 80px 0px;
+  padding: 10px;
   color: black;
   letter-spacing: 1px;
   font-weight: 400;
   font-size: 20px;
   &__title {
     letter-spacing: 2px;
+    color: rgb(220, 220, 220);
   }
   &__border {
     border: 1px solid black;
@@ -284,63 +312,66 @@
 
 //pageRequest 
 
-.request__title {
-  letter-spacing: 2px;
-  font-weight: 500;
-}
 .request__block {
-  padding: 10px 0;
-}
-.request__items {
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 50%;
-  margin: 10px auto;
-  padding: 15px;
-  font-weight: 300;
-  background-color: rgb(220, 220, 220);
-  transition: all 0.4s;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 3px 3px 5px black;
-  }
-}
-.request__textarea {
-  word-wrap: break-word;
-  text-align: justify;
-}
-.request__items li {
-  margin-bottom: 20px;
-}
-.request__btn {
-  background-color: rgb(36, 106, 111);
   color: rgb(220, 220, 220);
-  border: none;
-  width: 40%;
-  margin: 0 5px;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: all 0.1s ease;
-  &:hover {
-    background-color: rgb(72, 127, 131);
+  .request__title {
+    letter-spacing: 2px;
+    font-weight: 500;
+    
   }
-  &:active {
-    box-shadow: 1px 2px 4px black;
+  .request__items {
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 15px;
+    font-weight: 300;
+    background-color: rgb(220, 220, 220);
+    transition: all 0.4s;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 3px 3px 5px black;
+    }
+  }
+  .request__textarea {
+    word-wrap: break-word;
+    text-align: justify;
+  }
+  .request__items li {
+    margin-bottom: 20px;
+  }
+  .request__btn {
+    background-color: rgb(36, 106, 111);
+    color: rgb(220, 220, 220);
+    border: none;
+    width: 40%;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.1s ease;
+    letter-spacing: 1px;
+    &:hover {
+      background-color: rgb(72, 127, 131);
+    }
+    &:active {
+      box-shadow: 1px 2px 4px black;
+    }
+  }
+  .danger {
+    background-color: #e53935;
+    color: #fff;
+    &:hover {
+      background-color: #c00804;
+    }
   }
 }
-.danger {
-  background-color: #e53935;
-  color: #fff;
-  &:hover {
-    background-color: #c00804;
-  }
-}
+
 body.modal-open {
   overflow: hidden;
-  margin-right: 18px;
 }
+
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -353,18 +384,12 @@ body.modal-open {
 }
 
 .request__form {
-  position: fixed;
-  top: 20%;
-  left: 32%;
-  width: 30%;
   min-height: 300px;
-  z-index: 200;
   background-color: rgb(72, 127, 131);
-  padding: 30px;
+  padding:5px;
+  border: 1px solid black;
 }
-.request__title {
-  font-size: 20px;
-}
+
 .btn.btn {
   margin-bottom: 10px;
 }
@@ -379,16 +404,9 @@ body.modal-open {
   height: 11em;
   border-radius: 50%;
   background: #ffffff;
-  background: -moz-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -webkit-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -o-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
-  background: -ms-linear-gradient(left, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
   background: linear-gradient(to right, #ffffff 10%, rgba(255, 255, 255, 0) 42%);
   position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
   animation: load3 1.4s infinite linear;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
 .loader:before {
@@ -414,23 +432,11 @@ body.modal-open {
   bottom: 0;
   right: 0;
 }
-@-webkit-keyframes load3 {
-  0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-  }
-  100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-  }
-}
 @keyframes load3 {
   0% {
-      -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
   }
   100% {
-      -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
   }
 }

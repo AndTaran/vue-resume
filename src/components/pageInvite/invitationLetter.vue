@@ -1,14 +1,19 @@
 <template>
-  <div class="letter">
-    <div class="letter__border" v-if="newTitle(title)">
+  <div
+    class="letter text-base md:text-lg lg:text-xl lg:mx-3.5 xl:mx-10"
+    v-if="newTitle(title)"
+  >
+    <div class="letter__border">
       <h2>{{ newTitle(title) }}</h2>
 
       <div v-if="title == 'interview'">
-        <h4 class="company__title">
+        <h4 class="company__title text-lg md:text-xl lg:text-2xl">
           <p>{{ times }}, {{ myName }}!</p>
         </h4>
         <p v-if="companyName">Мы представляем {{ newPresent(present) }}</p>
-        <strong>{{ companyName }}</strong>
+        <strong class="text-lg md:text-xl lg:text-2xl">{{
+          companyName
+        }}</strong>
         <p>
           Нас заинтересовал твой сайт - резюме и мы хотим пригласить тебя на
           собеседование

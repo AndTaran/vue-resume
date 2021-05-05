@@ -1,14 +1,23 @@
 <template>
-  <div class="title" @click="isOpen = !isOpen">
+  <div
+    class="title w-full text-center text-xs sm:w-3/4 sm:text-left md:text-sm xl:text-xl"
+    @click="isOpen = !isOpen"
+  >
     {{ contact.title.toUpperCase() }}
   </div>
-  <transition name="fade">
+
+  <transition-group name="fade">
     <div class="content" v-if="isOpen">
-      <div class="phone">{{ contact.phone }}</div>
-      <div class="email">{{ contact.email }}</div>
-      <p class="text">{{ contact.text }}</p>
+      <div class="phone text-center text-sm sm:text-left xl:text-xl">
+        {{ contact.phone }}
+      </div>
+
+      <div class="email text-center text-sm sm:text-left xl:text-xl">
+        {{ contact.email }}
+      </div>
+      <p class="text text-sm xl:text-xl">{{ contact.text }}</p>
     </div>
-  </transition>
+  </transition-group>
 </template>
 
 <script>

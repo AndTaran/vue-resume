@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="column">
-      <div class="contacts__img">
+      <div class="contacts__img mb-11 hidden sm:inline-block">
         <img src="../../../assets/logo.png" alt="" />
       </div>
       <contacts v-for="c in contact" :key="c.title" :contact="c" />
