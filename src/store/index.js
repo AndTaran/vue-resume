@@ -90,14 +90,18 @@ export default createStore({
       }
     },
     async getEmailData({ commit }) {
+      if (this.getters.localCompanyName == null) {
+        return;
+      }
       let withoutDots = this.getters.localCompanyName
         .replace(/[/./]/g, "")
         .trim();
       try {
         const { data } = await axios.get(`/${withoutDots}.json`);
         if (data == null) {
-          commit("setEmailData", data);
+          commit("setEmailData", null);
         } else {
+          //Проходим по всем id ключам, сохраняем в объект с добавление id
           const requests = Object.keys(data).map((id) => ({ ...data[id], id }));
           commit("setEmailData", requests);
         }
