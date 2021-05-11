@@ -60,11 +60,11 @@ export default {
   },
   methods: {
     async updateIdApplication(id, name) {
-      await this.store.commit("setIdApplication", id);
+      await this.store.commit("updateIdApplication", id);
       await this.store.dispatch("removeRequest", name);
     },
     async popupOpen(id, target, phone, aboutUs) {
-      await this.store.commit("setIdApplication", id);
+      await this.store.commit("updateIdApplication", id);
       await this.store.commit("updateTarget", target);
       await this.store.commit("updateCompanyPhone", phone);
       await this.store.commit("updateAboutUs", aboutUs);

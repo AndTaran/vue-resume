@@ -1,6 +1,14 @@
 <template>
   <Navbar title="Заявка" />
-  <app-page-request title="Ваша заявка" />
+  <app-page-request
+    :title="
+      arrRequest == null
+        ? 'Заявок нет'
+        : arrRequest.length > 1
+        ? 'Ваши заявки'
+        : 'Ваша заявка'
+    "
+  />
 </template>
 
 <script>
@@ -12,10 +20,9 @@ import Navbar from "../components/ui/Navbar";
 export default {
   setup() {
     const store = useStore();
-    const arrRequest = computed(() => store.getters.emailData);
 
     return {
-      arrRequest,
+      arrRequest: computed(() => store.getters.emailData),
     };
   },
   components: { Navbar, AppPageRequest },

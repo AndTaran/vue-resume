@@ -69,7 +69,9 @@
           {{ companyPhone }}
         </div>
       </div>
-      <button class="btn letter__btn" @click="postLetter">Отправить</button>
+      <button v-if="companyName" class="btn letter__btn" @click="postLetter">
+        Отправить
+      </button>
     </div>
   </div>
 </template>
@@ -85,6 +87,10 @@ import { textareaName } from "../../utils/textareaMap";
 export default {
   props: {
     myName: String,
+  },
+
+  data() {
+    return {};
   },
 
   setup() {
@@ -108,9 +114,9 @@ export default {
       companyPhone,
       aboutUs,
       present,
+      title,
       newPresent,
       newTitle,
-      title,
       textareaName,
       times,
     };

@@ -4,9 +4,7 @@
     <div class="hidden sm:block">
       <router-link class="nav__link" to="/">Резюме</router-link>
       <router-link class="nav__link" to="/invite">Пригласить</router-link>
-      <router-link class="nav__link" to="/applications" v-if="localCompanyName"
-        >Заявки</router-link
-      >
+      <router-link class="nav__link" to="/applications">Заявки</router-link>
     </div>
 
     <div class="burger block sm:hidden">
@@ -19,10 +17,7 @@
           <router-link class="nav__link menu__link" to="/invite"
             >Пригласить</router-link
           >
-          <router-link
-            class="nav__link menu__link"
-            to="/applications"
-            v-if="localCompanyName"
+          <router-link class="nav__link menu__link" to="/applications"
             >Заявки</router-link
           >
         </div>
