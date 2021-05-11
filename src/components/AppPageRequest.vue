@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <h2
-        class="letter__title uppercase py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl"
-      >
+      <h2 class="letter__title py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">
         {{ title }}
       </h2>
       <app-loader v-if="loading"></app-loader>
