@@ -47,21 +47,21 @@ export default createStore({
     updateTarget(state, newTarget) {
       state.target = newTarget;
     },
-    updateMessage(state, payload) {
-      state.message = payload;
+    updateMessage(state, newMessage) {
+      state.message = newMessage;
     },
-    updateTextareaName(state, payload) {
-      state.textareaName = payload;
+    updateTextareaName(state, newTextareaName) {
+      state.textareaName = newTextareaName;
     },
-    setEmailData(state, payload) {
-      state.emailData = payload;
+    updateEmailData(state, newEmailData) {
+      state.emailData = newEmailData;
     },
-    setLocalCompanyName(state, payload) {
-      state.localCompanyName = payload;
-      localStorage.setItem(TOKEN_KEY, payload);
+    updateLocalCompanyName(state, newLocalCompanyName) {
+      state.localCompanyName = newLocalCompanyName;
+      localStorage.setItem(TOKEN_KEY, newLocalCompanyName);
     },
-    setIdApplication(state, IdApplication) {
-      state.idApplication = IdApplication;
+    updateIdApplication(state, newIdApplication) {
+      state.idApplication = newIdApplication;
     },
 
     clearForm(state) {
@@ -84,7 +84,7 @@ export default createStore({
           phone: this.state.companyPhone,
           target: this.state.target,
         });
-        commit("setLocalCompanyName", name);
+        commit("updateLocalCompanyName", name);
       } catch (error) {
         console.log(error);
       }
@@ -99,11 +99,11 @@ export default createStore({
       try {
         const { data } = await axios.get(`/${withoutDots}.json`);
         if (data == null) {
-          commit("setEmailData", null);
+          commit("updateEmailData", null);
         } else {
           //Проходим по всем id ключам, сохраняем в объект с добавление id
           const requests = Object.keys(data).map((id) => ({ ...data[id], id }));
-          commit("setEmailData", requests);
+          commit("updateEmailData", requests);
         }
       } catch (error) {
         console.log(error);

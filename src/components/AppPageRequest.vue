@@ -45,14 +45,14 @@ export default {
 
     const localCompanyName = computed({
       get: () => store.getters.localCompanyName,
-      set: (value) => store.commit("setLocalCompanyName", value),
+      set: (value) => store.commit("updateLocalCompanyName", value),
     });
 
     onMounted(() => {
       //При открытии страницы "Заявки" грузит данные с сервера
       function get() {
         if (localCompanyName.value == null) {
-          store.commit("setEmailData", null);
+          store.commit("updateEmailData", null);
           loading.value = false;
         } else {
           store.dispatch("getEmailData", localCompanyName.value);

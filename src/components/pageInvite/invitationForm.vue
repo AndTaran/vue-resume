@@ -30,9 +30,17 @@
       </select>
     </div>
 
-    <div class="form-control">
-      <label for="companyName">Наименование</label>
-      <input type="text " id="companyName" v-model="newName" />
+    <div class="form-control" :class="{ invalid: v$.newName.$error }">
+      <label for="companyName">Наименование*</label>
+      <input
+        type="text "
+        id="companyName"
+        v-model="v$.newName.$model"
+        @blur="v$.newName.$touch"
+      />
+      <small v-if="v$.newName.$error"
+        >Введите наименование(мин. 3 символа)</small
+      >
     </div>
 
     <div class="form-control">
@@ -42,12 +50,12 @@
 
     <div class="form-control" v-if="titleTextarea == 'interview'">
       <label for="phone">Телефон</label>
-      <input type="text" id="phone" v-model="newCompanyPhone" />
+      <input type="tel" id="phone" v-model="newCompanyPhone" />
     </div>
 
     <button
       class="btn text-xs sm:text-sm lg:text-base xl:text-lg"
-      @click="clearForm"
+      @click.prevent="clearForm"
       type="reset"
     >
       Очистить
@@ -58,6 +66,8 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import { useVuelidate } from "@vuelidate/core";
+import { required, minLength } from "@vuelidate/validators";
 import { textareaName } from "../../utils/textareaMap";
 
 export default {
@@ -104,11 +114,22 @@ export default {
       store,
       titleTextarea,
       textareaName,
+      v$: useVuelidate(),
+    };
+  },
+
+  validations() {
+    return {
+      newName: {
+        required,
+        minLength: minLength(3),
+      },
     };
   },
   methods: {
     clearForm() {
       this.store.commit("clearForm");
+      // this.v$.newName.$reset;
     },
   },
 };

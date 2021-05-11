@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import AboutMe from "./pageResume/information/AboutMe";
-import MyDescription from "./pageResume/discription/MyDescription";
+import AboutMe from "./pageResume/AboutMe";
+import MyDescription from "./pageResume/MyDescription";
 
 export default {
   components: { AboutMe, MyDescription },
