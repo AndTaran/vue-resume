@@ -18,20 +18,11 @@
 import DescrBtn from "./DescrBtn";
 
 export default {
-  setup() {
-    const arr = [
-      {
-        title: "Контакты",
-        descr: ["+7(918)29-69-201", "and_taranenko@mail.ru"],
-      },
-      {
-        title: "О себе",
-        descr: [
-          "- Внимание к деталям;\n- Умение работать в команде;\n- Имею хорошие способности к самообучению и саморазвитию;\n- Большое желание и готовность развиваться в сфере IT.",
-        ],
-      },
-    ];
-    return { arr };
+  props: {
+    arr: {
+      type: Array,
+      required: true,
+    },
   },
   components: { DescrBtn },
 };

@@ -7,7 +7,7 @@
         {{ vacancy }}
       </div>
     </div>
-    <ul v-for="i in arr" :key="i.title">
+    <ul v-for="i in arrProfessional" :key="i.title">
       <li>
         <descr-btn
           :title="i.title"
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+import { useStore } from "vuex";
 import DescrBtn from "./DescrBtn";
 
 export default {
@@ -41,42 +43,12 @@ export default {
     },
   },
   setup() {
-    const arr = [
-      {
-        title: "Навыки",
-        descr: [
-          "HTML",
-          "CSS",
-          "SCSS",
-          "JavaScript",
-          "Vue",
-          "Vuex",
-          "Axios",
-          "GIT",
-        ],
-      },
-      {
-        title: "Образование",
-        descr: [
-          "Кубанский государственный аграрный университет",
-          "Факультет: экономический",
-          "Специальность: экономика предприятий",
-          "Год окончания: 2016",
-        ],
-      },
-      {
-        title: "Опыт работы",
-        descr: [
-          "НЕВА, Холдинг Безопасности",
-          "Менеджер по продажам",
-          "Ноябрь 2016 - Июль 2020",
-          "\nТерминал, Строительный комплекс ",
-          "Менеджер по закупкам",
-          "Декабрь 2020 - Апрель 2021",
-        ],
-      },
-    ];
-    return { arr };
+    const store = useStore();
+    const arrProfessional = computed(
+      () => store.getters["edit/arrProfessional"]
+    );
+
+    return { arrProfessional };
   },
   components: { DescrBtn },
 };

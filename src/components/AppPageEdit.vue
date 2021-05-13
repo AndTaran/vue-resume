@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <h2 class="uppercase text-white text-lg">
+      <h2 class="letter__title text-lg">
         Данный раздел находится в разработке!
       </h2>
       <h2 class="letter__title py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">
@@ -27,11 +27,11 @@
             <br />
             <div class="edit__row">
               <label for="phone">Tелефон</label>
-              <input type="tel" id="phone" v-model="contacts.phone" />
+              <input type="tel" id="phone" v-model="phone" />
             </div>
             <div class="edit__row">
               <label for="email">Эл. почта</label>
-              <input type="email" id="email" v-model="contacts.email" />
+              <input type="email" id="email" v-model="email" />
             </div>
           </div>
         </div>
@@ -40,20 +40,20 @@
           <div class="form-control edit__item">
             <h3 class="edit__title">Образование</h3>
             <div class="edit__row">
-              <label for="education">Учебное заведение</label>
-              <input type="text" id="education" v-model="education" />
+              <label for="institution">Учебное заведение</label>
+              <input type="text" id="institution" />
             </div>
             <div class="edit__row">
               <label for="faculty">Факультет</label>
-              <input type="text" id="faculty" v-model="faculty" />
+              <input type="text" id="faculty" />
             </div>
             <div class="edit__row">
               <label for="specialization">Специализация</label>
-              <input type="text" id="specialization" v-model="specialization" />
+              <input type="text" id="specialization" />
             </div>
             <div class="edit__row">
               <label for="yearOfEnding">Год окончания</label>
-              <input type="date" id="yearOfEnding" v-model="yearOfEnding" />
+              <input type="number" id="yearOfEnding" />
             </div>
           </div>
         </div>
@@ -63,19 +63,23 @@
             <h3 class="edit__title">Опыт работы</h3>
             <div class="edit__row">
               <label for="organization">Организация</label>
-              <input type="text" id="organization" />
+              <input type="text" id="organization" v-model="organization" />
             </div>
             <div class="edit__row">
               <label for="position">Должность</label>
-              <input type="text" id="position" />
+              <input type="text" id="position" v-model="position" />
             </div>
             <div class="edit__row">
               <label for="beginningOfWork">Начало работы</label>
-              <input type="date" id="beginningOfWork" />
+              <input
+                type="month"
+                id="beginningOfWork"
+                v-model="beginningOfWork"
+              />
             </div>
             <div class="edit__row">
               <label for="ending">Окончание</label>
-              <input type="date" id="ending" />
+              <input type="month" id="ending" v-model="ending" />
             </div>
           </div>
         </div>
@@ -84,7 +88,13 @@
           <div class="form-control edit__item">
             <h3 class="edit__title">О себе</h3>
             <div class="edit__row">
-              <textarea name="aboutMe" id="" cols="5" rows="5"></textarea>
+              <textarea
+                name="aboutMe"
+                id=""
+                cols="5"
+                rows="5"
+                v-model="meInfo"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -105,29 +115,57 @@
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+
 export default {
   setup() {
     const store = useStore();
     const router = useRouter();
 
+    const beginningOfWork = ref("");
+    const ending = ref("");
+
     return {
       store,
       router,
+      beginningOfWork,
+      ending,
+
       generalInfo: ref({
         personName: null,
         surname: null,
         vacancy: null,
       }),
 
+      phone: ref(""),
+      email: ref(""),
       contacts: ref({
-        phone: null,
-        email: null,
+        title: "Контакты",
+        descr: [],
       }),
 
-      education: ref(""),
-      faculty: ref(""),
-      specialization: ref(""),
-      yearOfEnding: ref(""),
+      meInfo: ref(""),
+      aboutMe: ref({
+        title: "О себе",
+        descr: [],
+      }),
+
+      skills: ref({
+        title: "Навыки",
+        descr: [],
+      }),
+
+      education: ref({
+        title: "Образование",
+        descr: [],
+      }),
+
+      organization: ref(""),
+      position: ref(""),
+      startEndWork: ref(""),
+      workExperience: ref({
+        title: "Опыт работы",
+        descr: [],
+      }),
     };
   },
   methods: {
@@ -135,10 +173,25 @@ export default {
       await this.store.commit("edit/clearArray");
       await this.store.commit("edit/updateArrGeneral", this.generalInfo);
 
+      await this.contacts.descr.push(this.phone, this.email);
+      await this.aboutMe.descr.push(this.meInfo);
+
+      this.store.commit("edit/updateArrContacts", {
+        contact: this.contacts,
+        aboutMe: this.aboutMe,
+      });
+
+      this.startEndWork = `${this.beginningOfWork} - ${this.ending}`;
+      await this.workExperience.descr.push(
+        this.organization,
+        this.position,
+        this.date
+      );
+      this.store.commit("edit/updateArrProfessional", this.workExperience);
+
       setTimeout(() => {
         this.router.push("/");
       }, 500);
-      // this.store.commit("edit/updateArrProfessional", arrForm);
     },
   },
 };

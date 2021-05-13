@@ -11,27 +11,73 @@ export default {
       ],
       arrContacts: [
         {
-          phone: "",
-          email: "",
+          title: "Контакты",
+          descr: ["+7(918)29-69-201", "and_taranenko@mail.ru"],
         },
-        //Остановился тут
+        {
+          title: "О себе",
+          descr: [
+            "- Внимание к деталям;\n- Умение работать в команде;\n- Имею хорошие способности к самообучению и саморазвитию;\n- Большое желание и готовность развиваться в сфере IT.",
+          ],
+        },
       ],
-      arrProfessional: [],
+      arrProfessional: [
+        {
+          title: "Навыки",
+          descr: [
+            "HTML",
+            "CSS",
+            "SCSS",
+            "JavaScript",
+            "Vue",
+            "Vuex",
+            "Axios",
+            "GIT",
+          ],
+        },
+        {
+          title: "Образование",
+          descr: [
+            "Кубанский государственный аграрный университет",
+            "Факультет: экономический",
+            "Специальность: экономика предприятий",
+            "Год окончания: 2016",
+          ],
+        },
+        {
+          title: "Опыт работы",
+          descr: [
+            "НЕВА, Холдинг Безопасности",
+            "Менеджер по продажам",
+            "Ноябрь 2016 - Июль 2020",
+            "\nТерминал, Строительный комплекс ",
+            "Менеджер по закупкам",
+            "Декабрь 2020 - Апрель 2021",
+          ],
+        },
+      ],
     };
   },
   getters: {
     arrGeneral: (state) => state.arrGeneral,
+    arrContacts: (state) => state.arrContacts,
     arrProfessional: (state) => state.arrProfessional,
   },
   mutations: {
-    updateArrGeneral(getters, newValue) {
-      getters.arrGeneral.push(newValue);
+    updateArrGeneral(state, newValue) {
+      state.arrGeneral.push(newValue);
     },
-    updateArrProfessional(getters, newValue) {
-      getters.arrProfessional.push(newValue);
+    updateArrContacts(state, { contact, aboutMe }) {
+      state.arrContacts.push(contact, aboutMe);
     },
-    clearArray(getters) {
-      getters.arrGeneral = [];
+    updateArrProfessional(state, newValue) {
+      state.arrProfessional.push(newValue);
+    },
+
+    clearArray(state) {
+      state.arrGeneral = [];
+      state.arrContacts = [];
+      state.arrProfessional = [];
     },
   },
 };
