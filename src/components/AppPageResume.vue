@@ -6,9 +6,11 @@
       </div>
       <div class="blocks__right pt-10 sm:pt-32 sm:pb-32 w-full sm:w-3/5">
         <my-description
-          surname="Тараненко"
-          name="Андрей"
-          job="Junior Frontend разработчик"
+          v-for="e in arrGeneral"
+          :key="e"
+          :name="e.personName"
+          :surname="e.surname"
+          :vacancy="e.vacancy"
         ></my-description>
       </div>
     </div>
@@ -16,10 +18,19 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import AboutMe from "./pageResume/AboutMe";
 import MyDescription from "./pageResume/MyDescription";
+import { useStore } from "vuex";
 
 export default {
+  setup() {
+    const store = useStore();
+    const arrGeneral = computed(() => store.getters["edit/arrGeneral"]);
+    // const newArr = [...arrContactDetails];
+    // console.log(newArr);
+    return { arrGeneral };
+  },
   components: { AboutMe, MyDescription },
 };
 </script>

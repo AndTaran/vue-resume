@@ -1,9 +1,17 @@
+import { createStore, createLogger } from "vuex";
 import axios from "../axios/axios";
-import { createStore } from "vuex";
+import edit from "./modules/edit.module";
 const TOKEN_KEY = "localCompanyName";
 
+const plugins = [];
+
+if (process.env.NODE_ENV === "development") {
+  plugins.push(createLogger());
+}
+
 export default createStore({
-  namespaced: true,
+  // namespaced: true,
+  plugins,
 
   state() {
     return {
@@ -138,5 +146,5 @@ export default createStore({
       }
     },
   },
-  modules: {},
+  modules: { edit },
 });

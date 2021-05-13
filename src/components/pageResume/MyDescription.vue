@@ -4,7 +4,7 @@
       <div class="fio text-2xl sm:text-5xl xl:text-6xl">{{ surname }}</div>
       <div class="fio text-2xl md:text-5xl xl:text-6xl">{{ name }}</div>
       <div class="job mt-16 text-lg md:text-2xl lg:text-3xl xl:text-4xl">
-        {{ job }}
+        {{ vacancy }}
       </div>
     </div>
     <ul v-for="i in arr" :key="i.title">
@@ -24,9 +24,21 @@ import DescrBtn from "./DescrBtn";
 
 export default {
   props: {
-    name: String,
-    surname: String,
-    job: String,
+    name: {
+      type: String,
+      default: "Андрей",
+      required: true,
+    },
+    surname: {
+      type: String,
+      default: "Тараненко",
+      required: true,
+    },
+    vacancy: {
+      type: String,
+      default: "Junior Frontend разработчик",
+      required: true,
+    },
   },
   setup() {
     const arr = [
