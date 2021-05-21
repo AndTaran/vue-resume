@@ -19,9 +19,9 @@
 
 <script>
 import { computed } from "vue";
+import { useStore } from "vuex";
 import AboutMe from "./pageResume/AboutMe";
 import MyDescription from "./pageResume/MyDescription";
-import { useStore } from "vuex";
 
 export default {
   setup() {

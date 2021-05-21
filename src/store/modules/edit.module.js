@@ -70,8 +70,8 @@ export default {
     updateArrContacts(state, { contact, aboutMe }) {
       state.arrContacts.push(contact, aboutMe);
     },
-    updateArrProfessional(state, newValue) {
-      state.arrProfessional.push(newValue);
+    updateArrProfessional(state, { skills, education, workExperience }) {
+      state.arrProfessional.push(skills, education, workExperience);
     },
 
     clearArray(state) {

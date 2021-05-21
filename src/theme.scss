@@ -8,7 +8,7 @@
 // AppPageResume
 
 .container {
-  max-width: 1280px;
+  // max-width: 1280px;
   padding: 0 20px;
   margin: 0 auto;
   .blocks {
@@ -449,5 +449,74 @@ body.modal-open {
   }
   100% {
       transform: rotate(360deg);
+  }
+}
+
+// appPageEdit
+
+.edit {
+  font-family: "Spectral SC", serif;
+  padding: 0;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  &__items {
+    background-color: #fff;
+    color: black;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+  &__item {
+    width: 450px;
+    margin: 0;
+  }
+  &__item input {
+    padding: 0;
+    width: 60%;
+    resize: none;
+  }
+  &__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  .skill-items {
+    display: flex;
+    justify-content: space-between;
+  }
+  .skill-btn {
+    color: rgb(72, 127, 131);
+    width: 150px;
+    background-color: rgb(220, 220, 220);
+    border: 1.5px solid rgb(72, 127, 131);
+    cursor: default;
+    padding: 3px 10px;
+    margin: 3px;
+  }
+  .warning {
+    background-color: #c00804;
+    color: #fff;
+    border: 1.5px solid black;
+    text-transform: uppercase;
+    cursor: pointer;
+    &:hover {
+      background-color: #da4441;
+    }
+  }
+  .invalid {
+    border-color: #e53935;
+    &:focus {
+      border-color: #e53935;
+    }
   }
 }

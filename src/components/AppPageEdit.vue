@@ -13,26 +13,74 @@
             <h3 class="edit__title">Контактные данные</h3>
             <div class="edit__row">
               <label for="name">Имя</label>
-              <input type="text" id="name" v-model="generalInfo.personName" />
+              <input
+                type="text"
+                id="name"
+                :class="{ invalid: v$.generalInfo.personName.$error }"
+                v-model="v$.generalInfo.personName.$model"
+                @blur="v$.generalInfo.personName.$touch"
+              />
             </div>
+            <small class="text-right" v-if="v$.generalInfo.personName.$error"
+              >Обязательно для заполнения</small
+            >
 
             <div class="edit__row">
               <label for="surname">Фамилия</label>
-              <input type="text" id="surname" v-model="generalInfo.surname" />
+              <input
+                :class="{ invalid: v$.generalInfo.surname.$error }"
+                type="text"
+                id="surname"
+                v-model="v$.generalInfo.surname.$model"
+                @blur="v$.generalInfo.surname.$touch"
+              />
             </div>
+            <small class="text-right" v-if="v$.generalInfo.surname.$error"
+              >Обязательно для заполнения</small
+            >
+
             <div class="edit__row">
               <label for="vacancy">Должность</label>
-              <input type="text" id="vacancy" v-model="generalInfo.vacancy" />
+              <input
+                :class="{ invalid: v$.generalInfo.vacancy.$error }"
+                type="text"
+                id="vacancy"
+                v-model="v$.generalInfo.vacancy.$model"
+                @blur="v$.generalInfo.vacancy.$touch"
+              />
             </div>
+            <small class="text-right" v-if="v$.generalInfo.vacancy.$error"
+              >Обязательно для заполнения</small
+            >
+
             <br />
             <div class="edit__row">
               <label for="phone">Tелефон</label>
-              <input type="tel" id="phone" v-model="phone" />
+              <input
+                :class="{ invalid: v$.generalInfo.phone.$error }"
+                type="tel"
+                id="phone"
+                v-model="v$.generalInfo.phone.$model"
+                @blur="v$.generalInfo.phone.$touch"
+              />
             </div>
+            <small class="text-right" v-if="v$.generalInfo.phone.$error"
+              >Мин. 11 цифр</small
+            >
+
             <div class="edit__row">
               <label for="email">Эл. почта</label>
-              <input type="email" id="email" v-model="email" />
+              <input
+                :class="{ invalid: v$.generalInfo.email.$error }"
+                type="email"
+                id="email"
+                v-model="v$.generalInfo.email.$model"
+                @blur="v$.generalInfo.email.$touch"
+              />
             </div>
+            <small class="text-right" v-if="v$.generalInfo.email.$error"
+              >Обязательно для заполнения</small
+            >
           </div>
         </div>
 
@@ -41,19 +89,19 @@
             <h3 class="edit__title">Образование</h3>
             <div class="edit__row">
               <label for="institution">Учебное заведение</label>
-              <input type="text" id="institution" />
+              <input type="text" id="institution" v-model="institution" />
             </div>
             <div class="edit__row">
               <label for="faculty">Факультет</label>
-              <input type="text" id="faculty" />
+              <input type="text" id="faculty" v-model="faculty" />
             </div>
             <div class="edit__row">
               <label for="specialization">Специализация</label>
-              <input type="text" id="specialization" />
+              <input type="text" id="specialization" v-model="specialization" />
             </div>
             <div class="edit__row">
               <label for="yearOfEnding">Год окончания</label>
-              <input type="number" id="yearOfEnding" />
+              <input type="number" id="yearOfEnding" v-model="yearOfEnding" />
             </div>
           </div>
         </div>
@@ -99,11 +147,28 @@
           </div>
         </div>
 
-        <button
-          class="btn"
-          type="submit"
-          @click.prevent="pushFormEdit(personName)"
-        >
+        <div class="edit__items">
+          <div class="form-control edit__item">
+            <h3 class="edit__title">Навыки</h3>
+            <div class="edit__row">
+              <label for="skills">Навыки</label>
+              <input type="text" id="skills" v-model="skill" />
+            </div>
+            <button class="btn letter__btn" @click.prevent="addSkill">
+              Добавить
+            </button>
+            <ul class="skill-items" v-for="(s, idx) in skills.descr" :key="idx">
+              <li class="skill-btn">
+                {{ s }}
+              </li>
+              <button class="skill-btn warning" @click="removeSkill(idx)">
+                Удалить
+              </button>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn" type="submit" @click.prevent="pushFormEdit">
           Сохранить
         </button>
       </form>
@@ -115,20 +180,20 @@
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useVuelidate } from "@vuelidate/core";
+import { required, minLength } from "@vuelidate/validators";
 
 export default {
   setup() {
     const store = useStore();
     const router = useRouter();
 
-    const beginningOfWork = ref("");
-    const ending = ref("");
-
     return {
       store,
       router,
-      beginningOfWork,
-      ending,
+      v$: useVuelidate(),
+      beginningOfWork: ref(""),
+      ending: ref(""),
 
       generalInfo: ref({
         personName: null,
@@ -149,11 +214,16 @@ export default {
         descr: [],
       }),
 
+      skill: ref(""),
       skills: ref({
         title: "Навыки",
         descr: [],
       }),
 
+      institution: ref(""),
+      faculty: ref(""),
+      specialization: ref(),
+      yearOfEnding: ref(""),
       education: ref({
         title: "Образование",
         descr: [],
@@ -168,71 +238,80 @@ export default {
       }),
     };
   },
+  validations() {
+    return {
+      generalInfo: {
+        personName: {
+          required,
+          minLength: minLength(3),
+        },
+        surname: {
+          required,
+          minLength: minLength(3),
+        },
+        vacancy: {
+          required,
+        },
+        phone: {
+          required,
+          minLength: minLength(11),
+        },
+        email: {
+          required,
+        },
+      },
+    };
+  },
   methods: {
+    addSkill() {
+      this.skills.descr.push(this.skill);
+      this.skill = null;
+    },
+    removeSkill(id) {
+      this.skills.descr.splice(id, 1);
+    },
+
     async pushFormEdit() {
-      await this.store.commit("edit/clearArray");
-      await this.store.commit("edit/updateArrGeneral", this.generalInfo);
+      this.v$.$touch();
 
-      await this.contacts.descr.push(this.phone, this.email);
-      await this.aboutMe.descr.push(this.meInfo);
+      if (this.v$.$invalid) {
+        alert("Пожалуйста, заполните все обязательные поля!");
+      } else {
+        await this.store.commit("edit/clearArray");
+        await this.store.commit("edit/updateArrGeneral", this.generalInfo);
 
-      this.store.commit("edit/updateArrContacts", {
-        contact: this.contacts,
-        aboutMe: this.aboutMe,
-      });
+        this.contacts.descr.push(this.phone, this.email);
+        this.aboutMe.descr.push(this.meInfo);
 
-      this.startEndWork = `${this.beginningOfWork} - ${this.ending}`;
-      await this.workExperience.descr.push(
-        this.organization,
-        this.position,
-        this.date
-      );
-      this.store.commit("edit/updateArrProfessional", this.workExperience);
+        await this.store.commit("edit/updateArrContacts", {
+          contact: this.contacts,
+          aboutMe: this.aboutMe,
+        });
 
-      setTimeout(() => {
-        this.router.push("/");
-      }, 500);
+        this.education.descr.push(
+          this.institution,
+          `Факультет: ${this.faculty}
+        Специальность: ${this.specialization}
+        Год окончания: ${this.yearOfEnding}`
+        );
+
+        this.startEndWork = `${this.beginningOfWork} по ${this.ending}`;
+        this.workExperience.descr.push(
+          this.organization,
+          this.position,
+          this.startEndWork
+        );
+        this.store.commit("edit/updateArrProfessional", {
+          skills: this.skills,
+          education: this.education,
+          workExperience: this.workExperience,
+        });
+
+        setTimeout(() => {
+          this.router.push("/");
+        }, 500);
+      }
     },
   },
 };
 </script>
-
-<style lang="scss">
-.edit {
-  font-family: "Spectral SC", serif;
-  padding: 0;
-  max-width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  &__items {
-    background-color: #fff;
-    color: black;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid black;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    cursor: pointer;
-  }
-  &__item {
-    width: 450px;
-    margin: 0;
-  }
-  &__item input {
-    padding: 0;
-    width: 60%;
-    resize: none;
-  }
-  &__title {
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  &__row {
-    display: flex;
-    justify-content: space-between;
-    margin: 5px 0;
-  }
-}
-</style>

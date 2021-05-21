@@ -3,7 +3,7 @@
     <div class="mb-14 lg:mb-20 xl:mb-14">
       <div class="fio text-2xl sm:text-5xl xl:text-6xl">{{ surname }}</div>
       <div class="fio text-2xl md:text-5xl xl:text-6xl">{{ name }}</div>
-      <div class="job mt-16 text-lg md:text-2xl lg:text-3xl xl:text-4xl">
+      <div class="job mt-14 text-lg md:text-2xl lg:text-3xl xl:text-4xl">
         {{ vacancy }}
       </div>
     </div>
