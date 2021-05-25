@@ -69,7 +69,11 @@
           {{ companyPhone }}
         </div>
       </div>
-      <button v-if="companyName" class="btn letter__btn" @click="postLetter">
+      <button
+        :disabled="companyName == null || companyName == ''"
+        class="btn letter__btn"
+        @click="postLetter"
+      >
         Отправить
       </button>
     </div>

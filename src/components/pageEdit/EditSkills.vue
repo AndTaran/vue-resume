@@ -6,7 +6,11 @@
         <label for="skill">Навыки</label>
         <input type="text" id="skill" v-model="skill" />
       </div>
-      <button class="btn letter__btn" @click.prevent="addSkill">
+      <button
+        :disabled="skill == null"
+        class="btn letter__btn"
+        @click.prevent="addSkill"
+      >
         Добавить
       </button>
       <ul class="skill-items" v-for="(s, idx) in arr" :key="idx">
@@ -31,7 +35,7 @@ export default {
   },
   setup() {
     return {
-      skill: ref(""),
+      skill: ref(null),
     };
   },
   methods: {

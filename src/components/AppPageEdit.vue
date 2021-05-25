@@ -1,9 +1,6 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <h2 class="letter__title text-lg">
-        Данный раздел находится в разработке!
-      </h2>
       <h2 class="letter__title py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">
         Редактировать резюме
       </h2>
