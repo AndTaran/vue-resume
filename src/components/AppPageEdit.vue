@@ -8,165 +8,34 @@
         Редактировать резюме
       </h2>
       <form class="form edit text-xs sm:text-sm">
-        <div class="edit__items">
-          <div class="form-control edit__item">
-            <h3 class="edit__title">Контактные данные</h3>
-            <div class="edit__row">
-              <label for="name">Имя</label>
-              <input
-                type="text"
-                id="name"
-                :class="{ invalid: v$.generalInfo.personName.$error }"
-                v-model="v$.generalInfo.personName.$model"
-                @blur="v$.generalInfo.personName.$touch"
-              />
-            </div>
-            <small class="text-right" v-if="v$.generalInfo.personName.$error"
-              >Обязательно для заполнения</small
-            >
+        <edit-about-me
+          title="Контактные данные"
+          v-model:name="generalInfo.personName"
+          v-model:surname="generalInfo.surname"
+          v-model:vacancy="generalInfo.vacancy"
+          v-model:phone="phone"
+          v-model:email="email"
+        />
 
-            <div class="edit__row">
-              <label for="surname">Фамилия</label>
-              <input
-                :class="{ invalid: v$.generalInfo.surname.$error }"
-                type="text"
-                id="surname"
-                v-model="v$.generalInfo.surname.$model"
-                @blur="v$.generalInfo.surname.$touch"
-              />
-            </div>
-            <small class="text-right" v-if="v$.generalInfo.surname.$error"
-              >Обязательно для заполнения</small
-            >
+        <edit-education
+          :title="education.title"
+          v-model:institution="institution"
+          v-model:faculty="faculty"
+          v-model:specialization="specialization"
+          v-model:yearOfEnding="yearOfEnding"
+        />
 
-            <div class="edit__row">
-              <label for="vacancy">Должность</label>
-              <input
-                :class="{ invalid: v$.generalInfo.vacancy.$error }"
-                type="text"
-                id="vacancy"
-                v-model="v$.generalInfo.vacancy.$model"
-                @blur="v$.generalInfo.vacancy.$touch"
-              />
-            </div>
-            <small class="text-right" v-if="v$.generalInfo.vacancy.$error"
-              >Обязательно для заполнения</small
-            >
+        <edit-work
+          :title="workExperience.title"
+          v-model:organization="organization"
+          v-model:position="position"
+          v-model:beginningOfWork="beginningOfWork"
+          v-model:ending="ending"
+        />
 
-            <br />
-            <div class="edit__row">
-              <label for="phone">Tелефон</label>
-              <input
-                :class="{ invalid: v$.generalInfo.phone.$error }"
-                type="tel"
-                id="phone"
-                v-model="v$.generalInfo.phone.$model"
-                @blur="v$.generalInfo.phone.$touch"
-              />
-            </div>
-            <small class="text-right" v-if="v$.generalInfo.phone.$error"
-              >Мин. 11 цифр</small
-            >
+        <edit-textarea :title="aboutMe.title" v-model:aboutMe="meInfo" />
 
-            <div class="edit__row">
-              <label for="email">Эл. почта</label>
-              <input
-                :class="{ invalid: v$.generalInfo.email.$error }"
-                type="email"
-                id="email"
-                v-model="v$.generalInfo.email.$model"
-                @blur="v$.generalInfo.email.$touch"
-              />
-            </div>
-            <small class="text-right" v-if="v$.generalInfo.email.$error"
-              >Обязательно для заполнения</small
-            >
-          </div>
-        </div>
-
-        <div class="edit__items">
-          <div class="form-control edit__item">
-            <h3 class="edit__title">Образование</h3>
-            <div class="edit__row">
-              <label for="institution">Учебное заведение</label>
-              <input type="text" id="institution" v-model="institution" />
-            </div>
-            <div class="edit__row">
-              <label for="faculty">Факультет</label>
-              <input type="text" id="faculty" v-model="faculty" />
-            </div>
-            <div class="edit__row">
-              <label for="specialization">Специализация</label>
-              <input type="text" id="specialization" v-model="specialization" />
-            </div>
-            <div class="edit__row">
-              <label for="yearOfEnding">Год окончания</label>
-              <input type="number" id="yearOfEnding" v-model="yearOfEnding" />
-            </div>
-          </div>
-        </div>
-
-        <div class="edit__items">
-          <div class="form-control edit__item">
-            <h3 class="edit__title">Опыт работы</h3>
-            <div class="edit__row">
-              <label for="organization">Организация</label>
-              <input type="text" id="organization" v-model="organization" />
-            </div>
-            <div class="edit__row">
-              <label for="position">Должность</label>
-              <input type="text" id="position" v-model="position" />
-            </div>
-            <div class="edit__row">
-              <label for="beginningOfWork">Начало работы</label>
-              <input
-                type="month"
-                id="beginningOfWork"
-                v-model="beginningOfWork"
-              />
-            </div>
-            <div class="edit__row">
-              <label for="ending">Окончание</label>
-              <input type="month" id="ending" v-model="ending" />
-            </div>
-          </div>
-        </div>
-
-        <div class="edit__items">
-          <div class="form-control edit__item">
-            <h3 class="edit__title">О себе</h3>
-            <div class="edit__row">
-              <textarea
-                name="aboutMe"
-                id=""
-                cols="5"
-                rows="5"
-                v-model="meInfo"
-              ></textarea>
-            </div>
-          </div>
-        </div>
-
-        <div class="edit__items">
-          <div class="form-control edit__item">
-            <h3 class="edit__title">Навыки</h3>
-            <div class="edit__row">
-              <label for="skills">Навыки</label>
-              <input type="text" id="skills" v-model="skill" />
-            </div>
-            <button class="btn letter__btn" @click.prevent="addSkill">
-              Добавить
-            </button>
-            <ul class="skill-items" v-for="(s, idx) in skills.descr" :key="idx">
-              <li class="skill-btn">
-                {{ s }}
-              </li>
-              <button class="skill-btn warning" @click="removeSkill(idx)">
-                Удалить
-              </button>
-            </ul>
-          </div>
-        </div>
+        <edit-skills :title="skills.title" :arr="skills.descr" />
 
         <button class="btn" type="submit" @click.prevent="pushFormEdit">
           Сохранить
@@ -180,25 +49,36 @@
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import EditAboutMe from "./pageEdit/EditAboutMe";
+import EditEducation from "./pageEdit/EditEducation";
+import EditWork from "./pageEdit/EditWork";
+import EditTextarea from "./pageEdit/EditTextarea";
+import EditSkills from "./pageEdit/EditSkills";
 import { useVuelidate } from "@vuelidate/core";
-import { required, minLength } from "@vuelidate/validators";
 
 export default {
+  components: {
+    EditAboutMe,
+    EditEducation,
+    EditWork,
+    EditTextarea,
+    EditSkills,
+  },
   setup() {
     const store = useStore();
     const router = useRouter();
 
     return {
+      v$: useVuelidate(),
       store,
       router,
-      v$: useVuelidate(),
       beginningOfWork: ref(""),
       ending: ref(""),
 
       generalInfo: ref({
-        personName: null,
-        surname: null,
-        vacancy: null,
+        personName: "",
+        surname: "",
+        vacancy: "",
       }),
 
       phone: ref(""),
@@ -214,7 +94,6 @@ export default {
         descr: [],
       }),
 
-      skill: ref(""),
       skills: ref({
         title: "Навыки",
         descr: [],
@@ -222,7 +101,7 @@ export default {
 
       institution: ref(""),
       faculty: ref(""),
-      specialization: ref(),
+      specialization: ref(""),
       yearOfEnding: ref(""),
       education: ref({
         title: "Образование",
@@ -238,39 +117,8 @@ export default {
       }),
     };
   },
-  validations() {
-    return {
-      generalInfo: {
-        personName: {
-          required,
-          minLength: minLength(3),
-        },
-        surname: {
-          required,
-          minLength: minLength(3),
-        },
-        vacancy: {
-          required,
-        },
-        phone: {
-          required,
-          minLength: minLength(11),
-        },
-        email: {
-          required,
-        },
-      },
-    };
-  },
-  methods: {
-    addSkill() {
-      this.skills.descr.push(this.skill);
-      this.skill = null;
-    },
-    removeSkill(id) {
-      this.skills.descr.splice(id, 1);
-    },
 
+  methods: {
     async pushFormEdit() {
       this.v$.$touch();
 
